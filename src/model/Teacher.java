@@ -1,10 +1,11 @@
 package model;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Teacher implements Serializable {
-    private int id;
     private String name;
     private int teacherId;
     private String department;
@@ -12,15 +13,7 @@ public class Teacher implements Serializable {
     private char sex;
     private String phone;
     private String email;
-    private long createTime;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    private Date createTime;
 
     public String getName() {
         return name;
@@ -78,22 +71,26 @@ public class Teacher implements Serializable {
         this.email = email;
     }
 
-    public long getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(long createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    public void setCreateTime(Date createTime) {
-        setCreateTime(createTime.getTime());
+    public void setCreateTime(String createTime) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            setCreateTime(format.parse(createTime));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public String toString() {
         return "Teacher{" +
-                //"id=" + id + "," +
                 "name" + name + "," +
                 "sex" + sex + "," +
                 "teacherId" + teacherId + "," +

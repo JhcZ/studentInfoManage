@@ -3,7 +3,6 @@ package model;
 import java.io.Serializable;
 
 public class Student implements Serializable {
-    private int id;
     private String name;  //学生姓名
     private String department;  //学生所属学院
     private String phone;  //学生手机号
@@ -12,14 +11,6 @@ public class Student implements Serializable {
     private int studentId;  //学号
     private String className;  //学生所在班级
     private StudentStatus status;  //学生状态
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -110,7 +101,6 @@ public class Student implements Serializable {
     @Override
     public String toString() {
         return "Student{" +
-                //"id" + id + "," +
                 "name" + name + "," +
                 "studentId" + studentId + "," +
                 "department" + department + "," +
@@ -118,6 +108,7 @@ public class Student implements Serializable {
                 "className" + className + "," +
                 "sex" + sex + "," +
                 "phone" + phone + "," +
+                "status" + (status != null ? status.getName() : null) +
                 '}';
     }
 }

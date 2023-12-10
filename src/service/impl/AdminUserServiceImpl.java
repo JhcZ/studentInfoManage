@@ -3,8 +3,7 @@ package service.impl;
 import dao.AdminUserDao;
 import dao.impl.AdminUserDaoImpl;
 import model.AdminUser;
-import model.User;
-import model.UserStatus;
+import model.AdminStatus;
 import service.AdminUserService;
 import util.Encrypt;
 import java.util.Date;
@@ -17,7 +16,7 @@ public class AdminUserServiceImpl implements AdminUserService{
         return adminUserDao.findById(id);
     }
     @Override
-    public AdminUser getLoginUser(User user) {
+    public AdminUser getLoginUser(AdminUser user) {
         if (user == null) {
             return null;
         }
@@ -43,7 +42,7 @@ public class AdminUserServiceImpl implements AdminUserService{
     @Override
     public boolean add(AdminUser adminUser) {
         adminUser.setPassword(Encrypt.toMd5(adminUser.getPassword()));
-        adminUser.setStatus(UserStatus.NORMAL);
+        adminUser.setStatus(AdminStatus.NORMAL);
         return adminUserDao.insert(adminUser) == 1;
     }
     @Override
@@ -61,13 +60,13 @@ public class AdminUserServiceImpl implements AdminUserService{
         return adminUserDao.updatePwd(id, newPwd) == 1;
     }
     @Override
-    public boolean modStatus(int id, UserStatus status) {
+    public boolean modStatus(int id, AdminStatus status) {
         return adminUserDao.updateStatus(id, status.getName()) == 1;
     }
 
     @Override
     public boolean checkStatus(AdminUser adminUser) {
-        return adminUser.getStatus() == UserStatus.NORMAL;
+        return adminUser.getStatus() == AdminStatus.NORMAL;
     }
     @Override
     public boolean del(int id) {

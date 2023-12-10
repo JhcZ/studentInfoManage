@@ -2,7 +2,7 @@ package dao.impl;
 
 import dao.BaseDao;
 import dao.AdminUserDao;
-import model.UserStatus;
+import model.AdminStatus;
 import model.AdminUser;
 
 import java.sql.ResultSet;
@@ -105,7 +105,7 @@ public class AdminUserDaoImpl extends BaseDao implements AdminUserDao{
             if (condition.getName() != null && !condition.getName().isEmpty()) {
                 sql += " AND name LIKE '%" + condition.getName() + "%'";
             }
-            if (condition.getStatus() != null && condition.getStatus() != UserStatus.ALL) {
+            if (condition.getStatus() != null && condition.getStatus() != AdminStatus.ALL) {
                 sql += " AND status='" + condition.getStatus().getName() + "'";
             }
         }
@@ -142,7 +142,7 @@ public class AdminUserDaoImpl extends BaseDao implements AdminUserDao{
             if (condition.getName() != null && !condition.getName().isEmpty()) {
                 sql += " AND name LIKE '%" + condition.getName() + "%'";
             }
-            if (condition.getStatus() != null && condition.getStatus() != UserStatus.ALL) {
+            if (condition.getStatus() != null && condition.getStatus() != AdminStatus.ALL) {
                 sql += " AND status='" + condition.getStatus().getName() + "'";
             }
         }
@@ -232,7 +232,7 @@ public class AdminUserDaoImpl extends BaseDao implements AdminUserDao{
             if (condition.getName() != null && !condition.getName().isEmpty()) {
                 sql += " AND name LIKE '%" + condition.getName() + "%'";
             }
-            if (condition.getStatus() != null && condition.getStatus() != UserStatus.ALL) {
+            if (condition.getStatus() != null && condition.getStatus() != AdminStatus.ALL) {
                 sql += " AND status='" + condition.getStatus().getName() + "'";
             }
         }

@@ -1,8 +1,7 @@
 package service;
 
 import model.AdminUser;
-import model.User;
-import model.UserStatus;
+import model.AdminStatus;
 
 import java.util.List;
 
@@ -10,7 +9,7 @@ public interface AdminUserService {
     //获取指定id的管理员用户
     AdminUser get(int id);
     //查找登录管理员用户
-    AdminUser getLoginUser(User user);
+    AdminUser getLoginUser(AdminUser user);
     //分页模糊查询管理员用户列表
     List<AdminUser> get(AdminUser condition, int page, int pageSize);
     //获取查询管理员数量
@@ -24,7 +23,7 @@ public interface AdminUserService {
     //重置管理员用户登录密码
     boolean resetPwd(int id);
     //修改管理员用户状态
-    boolean modStatus(int id, UserStatus status);
+    boolean modStatus(int id, AdminStatus status);
     //检查管理员用户状态
     boolean checkStatus(AdminUser adminUser);
     //删除管理员用户

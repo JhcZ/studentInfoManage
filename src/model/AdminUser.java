@@ -9,7 +9,7 @@ public class AdminUser implements Serializable {
     private String password; //密码
     private long createTime; //账号创建时间
     private long lastAccessTime; //账号最近一次登录时间
-    private UserStatus status; //帐号状态
+    private AdminStatus status; //帐号状态
 
     public int getId() {
         return id;
@@ -59,31 +59,31 @@ public class AdminUser implements Serializable {
         setLastAccessTime(lastAccessTime.getTime());
     }
 
-    public UserStatus getStatus() {
+    public AdminStatus getStatus() {
         return status;
     }
 
-    public void setStatus(UserStatus status) {
+    public void setStatus(AdminStatus status) {
         this.status = status;
     }
 
     public void setStatus(String statusName) {
         if(statusName == null || "".equals(statusName)){
-            setStatus(UserStatus.ALL);
+            setStatus(AdminStatus.ALL);
             return;
         }
         switch (statusName){
             case"正常":
-                setStatus(UserStatus.NORMAL);
+                setStatus(AdminStatus.NORMAL);
                 break;
             case"冻结":
-                setStatus(UserStatus.FREEZE);
+                setStatus(AdminStatus.FREEZE);
                 break;
             case"异常":
-                setStatus(UserStatus.UNKNOWN);
+                setStatus(AdminStatus.UNKNOWN);
                 break;
             default:
-                setStatus(UserStatus.ALL);
+                setStatus(AdminStatus.ALL);
         }
     }
     @Override

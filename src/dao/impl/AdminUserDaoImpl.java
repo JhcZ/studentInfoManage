@@ -12,6 +12,8 @@ import java.util.Date;
 import java.util.List;
 
 public class AdminUserDaoImpl extends BaseDao implements AdminUserDao{
+
+
     @Override
     public AdminUser find(String name, String password) {
         AdminUser adminUser = null;

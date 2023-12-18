@@ -1,12 +1,11 @@
 package dao;
 
+import util.DBHelper;
+
 import java.sql.*;
 
 //数据库连接实体类
 public class BaseDao {
-    String driver = "com.mysql.cj.jdbc.Driver";  //驱动程序名称
-    String url =  "jdbc:mysql://localhost:3306/stuInfoDB?user=root&password=123456";  //JDBC UI
-
     protected Connection conn;
     protected PreparedStatement pstmt;
     protected Statement stmt;
@@ -19,29 +18,42 @@ public class BaseDao {
     //数据库连接
     public void connect(){
         try {
-            Class.forName(driver).newInstance();     //加载驱动程序
-            conn = DriverManager.getConnection(url);   //创建链接
+            conn = DBHelper.getConnection();
         } catch (Exception e) {
-            System.out.println("DAO连接数据库异常：" + e.getMessage());;
+            throw new RuntimeException("DAO连接数据库异常：" + e);
         }
     }
 
     public void close(){
         try{
-            if(rs != null && !rs.isClosed()){
-                rs.close();
-            }
-            if(pstmt != null && !pstmt.isClosed()){
-                pstmt.close();
-            }
-            if(stmt != null && !stmt.isClosed()){
-                stmt.close();
-            }
-            if(conn != null && !conn.isClosed()){
-                conn.close();
-            }
+            DBHelper.close(conn , stmt , rs , pstmt);
         }catch (SQLException e){
-            System.out.println("DAO关闭数据库异常：" + e.getMessage());
+            throw new RuntimeException("DAO关闭数据库异常：" + e);
+        }
+    }
+
+    public void beginTransaction() {
+        try {
+            DBHelper.beginTransaction();
+        } catch (SQLException e) {
+            throw new RuntimeException("DAO启动事务异常: " + e);
+        }
+    }
+
+
+    public void commitTransaction() {
+        try {
+            DBHelper.commitTransaction();
+        } catch (SQLException e) {
+            throw new RuntimeException("DAO提交事务异常: " + e);
+        }
+    }
+
+    public void rollbackTransaction() {
+        try {
+            DBHelper.rollbackTransaction();
+        } catch (SQLException e) {
+            throw new RuntimeException("DAO回滚事务异常: " + e);
         }
     }
 }

@@ -1,31 +1,31 @@
-CREATE DATABASE stuinfodb;
+create database stuinfodb;
 
-USE stuinfodb;
+use stuinfodb;
 
-CREATE TABLE IF NOT EXISTS admin_table
+create table if not exists admin_table
 (
-    id             INT AUTO_INCREMENT
-        PRIMARY KEY,
-    NAME           VARCHAR(10) NOT NULL COMMENT '管理员名称',
-    PASSWORD       VARCHAR(16) NOT NULL COMMENT '管理员密码',
-    createTime     BIGINT      NULL COMMENT '创建时间',
-    lastAccessTime BIGINT      NULL COMMENT '最近一次登录时间',
-    STATUS         VARCHAR(10) NULL COMMENT '状态'
+    id             int auto_increment
+        primary key,
+    name           varchar(10) not null comment '管理员名称',
+    password       varchar(16) not null comment '管理员密码',
+    createTime     bigint      null comment '创建时间',
+    lastAccessTime bigint      null comment '最近一次登录时间',
+    status         varchar(10) null comment '状态'
 )
-    CHARSET = utf8;
+    charset = utf8;
 
-CREATE TABLE IF NOT EXISTS application_course_cache
+create table if not exists application_course_cache
 (
-    courseId       INT          NOT NULL,
-    NAME           VARCHAR(10)  NULL,
-    teacher        INT          NULL,
-    location       VARCHAR(15)  NULL,
-    courseDuration VARCHAR(15)  NULL,
-    flag           VARCHAR(5)   NULL,
-    classes        VARCHAR(100) NULL,
-    startTime      DATE         NULL,
-    semester       INT          NULL,
-    numOfStu       INT          NULL,
+    courseId       int          not null,
+    name           varchar(10)  null,
+    teacher        int          null,
+    location       varchar(15)  null,
+    courseDuration varchar(15)  null,
+    flag           varchar(5)   null,
+    classes        varchar(100) null,
+    startTime      date         null,
+    semester       int          null,
+    numOfStu       int          null,
     approval       varchar(10)  null,
     primary key (courseId)
 );
@@ -99,32 +99,32 @@ create table if not exists course_table
 
 create table if not exists score_table
 (
-    id       int    not null,
+    id       int auto_increment
+        primary key,
     sId      int    null comment '学号',
     cId      int    not null comment '课程号',
     maxScore double null comment '课程最高分数',
     minScore double null comment '课程最低分数',
     passed   int    null comment '课程通过人数',
     grade    int    null comment '成绩',
-    primary key (id),
-    constraint socre_table_courseId_fk
+    constraint score_table_course_table_courseId_fk
         foreign key (cId) references course_table (courseId),
-    constraint socre_table_studentId_fk
+    constraint score_table_student_table_studentId_fk
         foreign key (sId) references student_table (studentId)
 );
 
 create table if not exists stu_choose
 (
-    id    int not null,
+    id    int auto_increment
+        primary key,
     stuId int null,
     cId   int null,
     sId   int null comment '成绩号',
-    primary key (id),
-    constraint courseId___fk
+    constraint stu_choose_course_table_courseId_fk
         foreign key (cId) references course_table (courseId),
-    constraint stu_choose_scoreId_fk
+    constraint stu_choose_score_table_id_fk
         foreign key (sId) references score_table (id),
-    constraint studentId___fk
+    constraint stu_choose_student_table_studentId_fk
         foreign key (stuId) references student_table (studentId)
 );
 

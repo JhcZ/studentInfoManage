@@ -39,7 +39,7 @@ public class DBHelper {
      * @param st
      * @param rs
      */
-    public static void close(Connection conn, Statement st, ResultSet rs)throws SQLException{
+    public static void close(Connection conn, Statement st, ResultSet rs ,PreparedStatement pstmt)throws SQLException{
         //如果是事务中的连接对象,我们随意不能关闭，需要使用事务的提交获取回滚来关闭连接对象
         Connection tlConn = tl.get();
         //是事务中的连接对象,我们什么也不做
@@ -50,6 +50,9 @@ public class DBHelper {
         if(rs!=null){
             rs.close();
         }
+        if(pstmt != null) {
+            pstmt.close();
+        }
         if(st!=null){
             st.close();
         }
@@ -57,7 +60,7 @@ public class DBHelper {
             DBHelper.close(conn);
         }
     }
-    public static void close(Connection conn)throws SQLException{
+    public static void close(Connection conn) throws SQLException {
         //如果是事务中的连接对象,我们随意不能关闭，需要使用事务的提交获取回滚来关闭连接对象
         Connection tlConn = tl.get();
         //是事务中的连接对象,我们什么也不做

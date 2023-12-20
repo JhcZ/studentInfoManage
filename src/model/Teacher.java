@@ -7,13 +7,23 @@ import java.util.Date;
 
 public class Teacher implements Serializable {
     private String name;
-    private int teacherId;
+    private String teacherId;
     private String department;
     private String degree;
-    private char sex;
+    private String sex;
     private String phone;
     private String email;
     private Date createTime;
+    private TeacherStatus teacherStatus;
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getName() {
         return name;
@@ -23,11 +33,19 @@ public class Teacher implements Serializable {
         this.name = name;
     }
 
-    public int getTeacherId() {
+    public TeacherStatus getTeacherStatus() {
+        return teacherStatus;
+    }
+
+    public void setTeacherStatus(TeacherStatus teacherStatus) {
+        this.teacherStatus = teacherStatus;
+    }
+
+    public String getTeacherId() {
         return teacherId;
     }
 
-    public void setTeacherId(int teacherId) {
+    public void setTeacherId(String teacherId) {
         this.teacherId = teacherId;
     }
 
@@ -47,11 +65,11 @@ public class Teacher implements Serializable {
         this.degree = degree;
     }
 
-    public char getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(char sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 

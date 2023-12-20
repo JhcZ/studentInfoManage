@@ -10,7 +10,7 @@ import java.util.Locale;
 public class ParseUtil {
     public static Date parseDateLong(String sDate) {
         try {
-            return new Date(new SimpleDateFormat("yyyy-M-d", Locale.CHINA).parse(sDate).getTime());
+            return new Date(new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA).parse(sDate).getTime());
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }

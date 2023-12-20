@@ -2,11 +2,11 @@ package model;
 
 import java.io.Serializable;
 
-public class Student implements Serializable {
+public class Student extends User implements Serializable {
     private String name;  //学生姓名
     private String department;  //学生所属学院
     private String phone;  //学生手机号
-    private char sex;  //学生性别
+    private String sex;  //学生性别
     private String major;  //学生所选专业
     private int studentId;  //学号
     private String className;  //学生所在班级
@@ -36,11 +36,11 @@ public class Student implements Serializable {
         this.phone = phone;
     }
 
-    public char getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(char sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 

@@ -1,6 +1,5 @@
 package controller;
 
-import com.mysql.cj.Session;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,7 +12,7 @@ import service.impl.AdminUserServiceImpl;
 
 import java.io.IOException;
 
-@WebServlet("admin/login")
+@WebServlet("/admin/login")
 public class AdminUserLoginServlet extends HttpServlet {
     AdminUserService adminUserService = new AdminUserServiceImpl();
 

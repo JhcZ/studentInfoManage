@@ -7,7 +7,9 @@ import java.util.Date;
 public class Course {
     private int courseId;  //课程号
     private String name;  //课程名称
-    private int teacherId; //授课教师
+
+    private Teacher teacher; // 授课教师
+    private int teacherId; //授课教师id
     private String location;  //上课地点
     private String courseDuration;  //上课周数
     private String flag;  //课程类别
@@ -32,12 +34,12 @@ public class Course {
         this.name = name;
     }
 
-    public int getTeacherId() {
-        return teacherId;
+    public Teacher getTeacher() {
+        return teacher;
     }
 
-    public void setTeacherId(int teacherId) {
-        this.teacherId = teacherId;
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 
     public String getLocation() {
@@ -80,7 +82,7 @@ public class Course {
         this.startTime = startTime;
     }
 
-    public Date setStartDate(String startTime){
+    public Date getStartDate(){
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         try{
             return format.parse(startTime);
@@ -117,7 +119,7 @@ public class Course {
                 "courseId" + courseId + "," +
                 "name" + name + "," +
                 "flag" + flag + "," +
-                "teacher" + teacherId + "," +
+                "teacher" + teacher.getTeacherId() + "," +
                 "location" + location + "," +
                 "courseDuration" + courseDuration + "," +
                 "classes" + classes + "," +
@@ -125,5 +127,13 @@ public class Course {
                 "semester" + semester + "," +
                 "numOfStu" + numOfStu + "," +
                 "}";
+    }
+
+    public int getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(int teacherId) {
+        this.teacherId = teacherId;
     }
 }

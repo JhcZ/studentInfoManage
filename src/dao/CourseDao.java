@@ -2,8 +2,6 @@ package dao;
 
 import model.Course;
 
-import java.util.List;
-
 public interface CourseDao extends SimpleDao<Course>{
     //根据教师号查找课程
     Course findByTId(int teacherId);

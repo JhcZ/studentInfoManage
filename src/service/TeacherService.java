@@ -1,8 +1,10 @@
 package service;
 
+import model.Course;
 import model.Teacher;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public interface TeacherService {
     //通过id查找teacher
@@ -12,4 +14,7 @@ public interface TeacherService {
 
     //修改密码
     int updatePw(Teacher t,String p);
+
+    //查询开课课程
+    List<Course> queryCourse(String teacherId);
 }

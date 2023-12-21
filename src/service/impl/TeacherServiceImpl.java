@@ -2,11 +2,13 @@ package service.impl;
 
 import dao.TeacherDao;
 import dao.impl.TeacherDaoImpl;
+import model.Course;
 import model.Teacher;
 import service.TeacherService;
 import util.Encrypt;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class TeacherServiceImpl implements TeacherService {
 
@@ -37,5 +39,14 @@ public class TeacherServiceImpl implements TeacherService {
             return 0;
         }
         return teacherDao.updatePw(t,p);
+    }
+
+    @Override
+    public List<Course> queryCourse(String teacherId) {
+        if (teacherId == null || teacherId.equals("")){
+            System.out.println("queryCourse : teacherId为空");
+            return null;
+        }
+        return teacherDao.queryCourse(teacherId);
     }
 }

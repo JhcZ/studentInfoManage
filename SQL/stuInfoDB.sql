@@ -69,7 +69,7 @@ create table if not exists student_table
 
 create table if not exists teacher_table
 (
-    teacherId  varchar(20)         not null comment '教师号',
+    teacherId  int         not null comment '教师号',
     password   varchar(32) not null comment '密码',
     name       varchar(10) not null comment '教师姓名',
     department varchar(15) not null comment '所属学院',

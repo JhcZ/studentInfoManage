@@ -19,7 +19,7 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
 
         try {
             pstmt =  conn.prepareStatement(sql);
-            pstmt.setString(1,id);
+            pstmt.setInt(1, Integer.parseInt(id));
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()){
                 teacher = new Teacher();
@@ -47,7 +47,7 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, Encrypt.toMd5(p));
-            pstmt.setString(2,t.getTeacherId());
+            pstmt.setInt(2, Integer.parseInt(t.getTeacherId()));
             return pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("修改错误");

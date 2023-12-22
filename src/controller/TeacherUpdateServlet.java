@@ -30,7 +30,6 @@ public class TeacherUpdateServlet extends HttpServlet {
         String initial = req.getParameter("initial_password");
         if (!teacher.getPassword().equals(Encrypt.toMd5(initial))){
             System.out.println("初始密码错误");
-            resp.setStatus(500);
             return;
         }
         String up = req.getParameter("up_password1");

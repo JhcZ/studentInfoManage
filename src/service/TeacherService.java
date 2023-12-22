@@ -1,5 +1,6 @@
 package service;
 
+import model.Course;
 import model.Teacher;
 
 import java.sql.SQLException;
@@ -13,6 +14,9 @@ public interface TeacherService {
 
     //修改密码
     int updatePw(Teacher t,String p);
+
+    //查询开课课程
+    List<Course> queryCourse(String teacherId);
 
     List<Teacher> fuzzQuery(Teacher condition);
 }

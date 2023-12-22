@@ -1,4 +1,4 @@
-create database stuinfodb;
+# create database stuinfodb;
 
 use stuinfodb;
 
@@ -7,7 +7,7 @@ create table if not exists admin_table
     id             int auto_increment
         primary key,
     name           varchar(10) not null comment '管理员名称',
-    password       varchar(16) not null comment '管理员密码',
+    password       varchar(40) not null comment '管理员密码',
     createTime     bigint      null comment '创建时间',
     lastAccessTime bigint      null comment '最近一次登录时间',
     status         varchar(10) null comment '状态'
@@ -69,7 +69,7 @@ create table if not exists student_table
 
 create table if not exists teacher_table
 (
-    teacherId  int         not null comment '教师号',
+    teacherId  int     auto_increment    not null comment '教师号',
     password   varchar(32) not null comment '密码',
     name       varchar(10) not null comment '教师姓名',
     department varchar(15) not null comment '所属学院',

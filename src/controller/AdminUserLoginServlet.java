@@ -35,7 +35,7 @@ public class AdminUserLoginServlet extends HttpServlet {
             return;
         }
         // 验证码输入验证
-        String inputCode = req.getParameter("inpuCode");
+        String inputCode = req.getParameter("validCode");
         if(inputCode == null || inputCode.isEmpty()) {
             // 登录失败
             System.out.println("Servlet 管理员登录失败：验证码为空");
@@ -74,6 +74,6 @@ public class AdminUserLoginServlet extends HttpServlet {
         // 将对象保存在session中
         session.setAttribute("admin" , admin);
         //页面重定向至后台管理
-
+        resp.sendRedirect("dashBoard.do");
     }
 }

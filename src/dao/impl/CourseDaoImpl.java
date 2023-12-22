@@ -288,4 +288,10 @@ public class CourseDaoImpl extends BaseDao implements CourseDao{
         }
         return num;
     }
+
+
+    public static void main(String[] args) {
+        CourseDaoImpl courseDao = new CourseDaoImpl();
+        courseDao.findByTId(123);
+    }
 }

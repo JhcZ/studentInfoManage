@@ -8,6 +8,8 @@ import util.Encrypt;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TeacherDaoImpl extends BaseDao implements TeacherDao {
 
@@ -23,7 +25,7 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()){
                 teacher = new Teacher();
-                teacher.setTeacherId(rs.getString("teacherId"));
+                teacher.setTeacherId(String.valueOf(rs.getInt("teacherId")));
                 teacher.setName(rs.getString("name"));
                 teacher.setPassword(rs.getString("password"));
                 teacher.setDepartment(rs.getString("department"));
@@ -57,4 +59,118 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
     }
 
 
+    @Override
+    public List<Teacher> query(Teacher condition) {
+        List<Teacher> TeacherList = new ArrayList<>();
+        String sql = "SELECT * FROM teacher_table";
+        if (condition != null) {
+            sql += " WHERE 1=1";
+            if (condition.getTeacherId() != null && !condition.getTeacherId().isEmpty()) {
+                sql += " AND id='" + condition.getTeacherId() + "'";
+            }
+            if (condition.getName() != null && !condition.getName().isEmpty()) {
+                sql += " AND name LIKE '%" + condition.getName() + "%'";
+            }
+        }
+        sql += " ORDER BY teacherId DESC";
+        System.out.println("DAO查询find(condition) : " + sql);
+        try {
+            pstmt = conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Teacher teacher = new Teacher();
+                teacher.setTeacherId(String.valueOf(rs.getInt("teacherId")));
+                teacher.setName(rs.getString("name"));
+                teacher.setPassword(rs.getString("password"));
+                teacher.setDepartment(rs.getString("department"));
+                teacher.setDegree(rs.getString("degree"));
+                teacher.setSex(rs.getString("sex"));
+                teacher.setPhone(rs.getString("phone"));
+                teacher.setEmail(rs.getString("email"));
+                teacher.setCreateTime(rs.getString("createTime"));
+                TeacherList.add(teacher);
+            }
+        } catch (SQLException e) {
+            System.out.println("DAO查询管理员出错：" + sql + "," + e.getMessage());
+        }
+        return TeacherList;
+    }
+
+
+    @Override
+    public Teacher findById(int id) {
+        return null;
+    }
+
+    // 提供分页查询的dao功能
+    @Override
+    public List<Teacher> query(Teacher condition, int start, int num) {
+        List<Teacher> TeacherList = new ArrayList<>();
+        String sql = "SELECT * FROM teacher_table";
+        if (condition != null) {
+            sql += " WHERE 1=1";
+            if (condition.getTeacherId() != null && !condition.getTeacherId().isEmpty()) {
+                sql += " AND id='" + condition.getTeacherId() + "'";
+            }
+            if (condition.getName() != null && !condition.getName().isEmpty()) {
+                sql += " AND name LIKE '%" + condition.getName() + "%'";
+            }
+        }
+        sql += " ORDER BY teacherId DESC `LIMIT` ? , ?";
+        System.out.println("DAO查询find(condition, start, num) : " + sql);
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, start);
+            pstmt.setInt(2, num);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Teacher teacher = new Teacher();
+                teacher.setTeacherId(String.valueOf(rs.getInt("teacherId")));
+                teacher.setName(rs.getString("name"));
+                teacher.setPassword(rs.getString("password"));
+                teacher.setDepartment(rs.getString("department"));
+                teacher.setDegree(rs.getString("degree"));
+                teacher.setSex(rs.getString("sex"));
+                teacher.setPhone(rs.getString("phone"));
+                teacher.setEmail(rs.getString("email"));
+                teacher.setCreateTime(rs.getString("createTime"));
+                TeacherList.add(teacher);
+            }
+        } catch (SQLException e) {
+            System.out.println("DAO查询管理员出错：" + sql + "," + e.getMessage());
+        }
+        return TeacherList;
+    }
+
+    @Override
+    public int insert(Teacher teacher) {
+        return 0;
+    }
+
+    @Override
+    public int update(Teacher teacher) {
+        return 0;
+    }
+
+    @Override
+    public int delete(int id) {
+        return 0;
+    }
+
+    @Override
+    public int count() {
+        return 0;
+    }
+
+    @Override
+    public int count(Teacher condition) {
+        return 0;
+    }
+
+
+    public static void main(String[] args) {
+        Teacher teacher = new Teacher();
+
+        System.out.println(new TeacherDaoImpl().query(teacher));
+    }
 }

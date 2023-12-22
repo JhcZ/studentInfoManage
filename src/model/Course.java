@@ -119,7 +119,7 @@ public class Course {
                 "courseId" + courseId + "," +
                 "name" + name + "," +
                 "flag" + flag + "," +
-                "teacher" + teacher.getTeacherId() + "," +
+//                "teacher" + teacher.getTeacherId() + "," +
                 "location" + location + "," +
                 "courseDuration" + courseDuration + "," +
                 "classes" + classes + "," +

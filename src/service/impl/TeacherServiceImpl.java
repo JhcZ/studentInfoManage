@@ -7,6 +7,7 @@ import service.TeacherService;
 import util.Encrypt;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class TeacherServiceImpl implements TeacherService {
 
@@ -37,5 +38,19 @@ public class TeacherServiceImpl implements TeacherService {
             return 0;
         }
         return teacherDao.updatePw(t,p);
+    }
+
+    /**
+     * 模糊查询
+     * 如果无任何查询信息查找所有对象
+     * @param condition 查询对象
+     * @return 查询结果列表
+     */
+    @Override
+    public List<Teacher> fuzzQuery(Teacher condition) {
+        if(condition == null) {
+            return null;
+        }
+        return teacherDao.query(condition);
     }
 }

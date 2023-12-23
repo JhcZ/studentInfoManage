@@ -1,5 +1,7 @@
 package controller;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mysql.cj.xdevapi.JsonArray;
 import com.mysql.cj.xdevapi.JsonString;
 import jakarta.servlet.ServletException;
@@ -21,9 +23,8 @@ public class TeacherQueryCourseServlet extends HttpServlet {
 
     TeacherService teacherService = new TeacherServiceImpl();
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
-        resp.setContentType("application/json; charset=utf8");
         HttpSession session = req.getSession();
         Teacher teacher = (Teacher) session.getAttribute("teacher");
         if(teacher == null){
@@ -35,9 +36,11 @@ public class TeacherQueryCourseServlet extends HttpServlet {
             System.out.println("没有属于该教师的课程");
             return;
         }
-
-        resp.getWriter().write(courseList.toString());
-        System.out.println(courseList.toString());
+        resp.setContentType("application/json; charset=utf8");
+        Gson gson = new GsonBuilder().create();
+        String json = gson.toJson(courseList);
+        resp.getWriter().write(json);
+        System.out.println(json);
 
     }
 

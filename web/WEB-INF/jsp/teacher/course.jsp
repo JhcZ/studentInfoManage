@@ -1,3 +1,5 @@
+
+
 <%--
   Created by IntelliJ IDEA.
   User: LGelo
@@ -11,138 +13,87 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>查询课程</title>
+    <title>Course List</title>
     <script src="js/jquery.min.js"></script>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+    </style>
 </head>
 <body>
-<h1>课程信息</h1>
-<div class="container">
-    <div class="row">
-        <div class="course-info">
-            <label>课程号:</label>
-            <span class="courseId"></span>
-        </div>
-        <div class="course-info">
-            <label>课程名称:</label>
-            <span class="name"></span>
-        </div>
-        <div class="course-info">
-            <label>授课教师:</label>
-            <span class="teacher"></span>
-        </div>
-        <div class="course-info">
-            <label>授课教师ID:</label>
-            <span class="teacherId"></span>
-        </div>
-        <div class="course-info">
-            <label>上课地点:</label>
-            <span class="location"></span>
-        </div>
-        <div class="course-info">
-            <label>上课周数:</label>
-            <span class="courseDuration"></span>
-        </div>
-        <div class="course-info">
-            <label>课程类别:</label>
-            <span class="flag"></span>
-        </div>
-        <div class="course-info">
-            <label>开设班级:</label>
-            <span class="classes"></span>
-        </div>
-        <div class="course-info">
-            <label>课程开始时间:</label>
-            <span class="startTime"></span>
-        </div>
-        <div class="course-info">
-            <label>课程开设学期:</label>
-            <span class="semester"></span>
-        </div>
-        <div class="course-info">
-            <label>选课人数:</label>
-            <span class="numOfStu"></span>
-        </div>
-    </div>
-</div>
+<table id="courseTable">
+    <thead>
+    <tr>
+        <th>课程号</th>
+        <th>课程名称</th>
+        <th>授课教师ID</th>
+        <th>上课地点</th>
+        <th>上课周数</th>
+        <th>课程类别</th>
+        <th>开设班级</th>
+        <th>课程开始时间</th>
+        <th>课程开设学期</th>
+        <th>选课人数</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+</table>
 
 <script>
-    // 使用Ajax请求课程数据
-    function getCourse(){
-        $.ajax({
-            url: '/studentInfo/teacher/query',
-            type: 'POST',
-            success: function(data) {
-                // 将课程数据展示到页面上对应的元素中
-                let container = document.querySelector('.container');
-                for(let course of data) {
-                    let row = document.createElement('div');
-                    row.className = 'row';
-                    let courseId = document.createElement('div');
-                    courseId.className = 'courseId';
-                    courseId.innerHTML = course.courseId;
+    fetch('/studentInfo/teacher/query')
+        .then(response => response.json())
+        .then(data => {
+            displayCourses(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 
-                    let name = document.createElement('div');
-                    courseId.className = 'name';
-                    courseId.innerHTML = course.name;
+    function displayCourses(courses) {
+        
+        const tableBody = document.querySelector('#courseTable tbody');
+        tableBody.innerHTML = '';
 
-                    let teacher = document.createElement('div');
-                    courseId.className = 'teacher';
-                    courseId.innerHTML = course.teacher;
+        courses.forEach(course => {
+            const row = document.createElement('tr');
+            console.log("<td>" + course.courseId + "</td>" ,
+  "<td>" + course.name + "</td>",
+  "<td>" + course.teacherId + "</td>",
+  "<td>" + course.location + "</td>",
+  "<td>" + course.courseDuration + "</td>",
+  "<td>" + course.flag + "</td>",
+  "<td>" + course.classes + "</td>",
+  "<td>" + course.startTime + "</td>",
+  "<td>" + course.semester + "</td>",
+  "<td>" + course.numOfStu + "</td>");
 
-                    let teacherId = document.createElement('div');
-                    courseId.className = 'teacherId';
-                    courseId.innerHTML = course.teacherId;
-
-                    let location = document.createElement('div');
-                    courseId.className = 'location';
-                    courseId.innerHTML = course.loaction;
-
-                    let courseDuration = document.createElement('div');
-                    courseId.className = 'courseDuration';
-                    courseId.innerHTML = course.courseDuration;
-
-                    let flag = document.createElement('div');
-                    courseId.className = 'flag';
-                    courseId.innerHTML = course.flag;
-
-                    let classes = document.createElement('div');
-                    courseId.className = 'classes';
-                    courseId.innerHTML = course.classes;
-
-                    let startTime = document.createElement('div');
-                    courseId.className = 'startTime';
-                    courseId.innerHTML = course.startTime;
-
-                    let semester = document.createElement('div');
-                    courseId.className = 'semester';
-                    courseId.innerHTML = course.semester;
-
-                    let numOfStu = document.createElement('div');
-                    courseId.className = 'numOfStu';
-                    courseId.innerHTML = course.numOfStu;
-                    row.appendChild(courseId);
-                    row.appendChild(name);
-                    row.appendChild(teacher);
-                    row.appendChild(teacherId);
-                    row.appendChild(location);
-                    row.appendChild(courseDuration);
-                    row.appendChild(flag);
-                    row.appendChild(classes);
-                    row.appendChild(startTime);
-                    row.appendChild(semester);
-                    row.appendChild(numOfStu);
-                    container.appendChild(row);
-                }
-            },
-            error: function() {
-                console.log('Error occurred');
-            }
+            row.innerHTML = 
+  "<td>" + course.courseId + "</td>" + 
+  "<td>" + course.name + "</td>" +
+  "<td>" + course.teacherId + "</td>" +
+  "<td>" + course.location + "</td>" +
+  "<td>" + course.courseDuration + "</td>" +
+  "<td>" + course.flag + "</td>" + 
+  "<td>" + course.classes + "</td>" + 
+  "<td>" + course.startTime + "</td>" +
+  "<td>" + course.semester + "</td>" + 
+  "<td>" + course.numOfStu + "</td>";
+            tableBody.appendChild(row);
         });
     }
-    getCourse();
-
 </script>
 </body>
-</html>
+

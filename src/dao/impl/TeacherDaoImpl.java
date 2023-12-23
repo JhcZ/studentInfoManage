@@ -61,7 +61,7 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
         return 0;
     }
 
-    //调用coursedao的查询方法，返回根据teacherId查询到的课程
+    //查询教师的课程
     @Override
     public List<Course> queryCourse(String teacherId) {
         List<Course> courseList = new ArrayList<>();
@@ -202,10 +202,4 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
         return 0;
     }
 
-
-    public static void main(String[] args) {
-        Teacher teacher = new Teacher();
-
-        System.out.println(new TeacherDaoImpl().query(teacher));
-    }
 }

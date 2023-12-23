@@ -85,7 +85,6 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
                 course.setNumOfStu(rs.getInt("courseId"));
                 courseList.add(course);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

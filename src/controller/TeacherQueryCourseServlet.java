@@ -31,7 +31,6 @@ public class TeacherQueryCourseServlet extends HttpServlet {
             System.out.println("未登录，无法查询");
             return;
         }
-
         List<Course> courseList = teacherService.queryCourse(teacher.getTeacherId());
         if (courseList == null || courseList.size() < 1) {
             System.out.println("没有属于该教师的课程");

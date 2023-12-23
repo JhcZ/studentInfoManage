@@ -65,6 +65,7 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
     @Override
     public List<Course> queryCourse(String teacherId) {
         List<Course> courseList = new ArrayList<>();
+
         String sql = "SELECT * FROM course_table where teacher = ?";
         try {
             pstmt = conn.prepareStatement(sql);

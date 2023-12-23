@@ -66,7 +66,6 @@
         
         const tableBody = document.querySelector('#courseTable tbody');
         tableBody.innerHTML = '';
-
         courses.forEach(course => {
             const row = document.createElement('tr');
             console.log("<td>" + course.courseId + "</td>" ,

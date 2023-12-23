@@ -36,6 +36,7 @@ public class TeacherQueryCourseServlet extends HttpServlet {
             System.out.println("没有属于该教师的课程");
             return;
         }
+
         resp.setContentType("application/json; charset=utf8");
         Gson gson = new GsonBuilder().create();
         String json = gson.toJson(courseList);

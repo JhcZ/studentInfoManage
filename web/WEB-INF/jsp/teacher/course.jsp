@@ -37,6 +37,7 @@
 <table id="courseTable">
     <thead>
     <tr>
+
         <th>课程号</th>
         <th>课程名称</th>
         <th>授课教师ID</th>

@@ -26,7 +26,7 @@ create table if not exists application_course_cache
     startTime      date         null,
     semester       int          null,
     numOfStu       int          null,
-    approval       varchar(10)  null,
+    approval       int          null,
     primary key (courseId)
 );
 

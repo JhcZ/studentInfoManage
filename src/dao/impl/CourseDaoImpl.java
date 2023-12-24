@@ -191,8 +191,8 @@ public class CourseDaoImpl extends BaseDao implements CourseDao{
     @Override
     public int insert(Course course) {
         int rows = 0;
-        String sql = "INSERT INTO course_table(courseId,name,teacher,location,courseDuration,flag,classes,startTime,semester,numOfStu)" +
-                " VALUES(?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO course_table(courseId,name,teacher,location,courseDuration,flag,classDay,classTime,startTime,semester,numOfStu)" +
+                " VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         try{
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1,course.getCourseId());
@@ -201,10 +201,11 @@ public class CourseDaoImpl extends BaseDao implements CourseDao{
             pstmt.setString(4,course.getLocation());
             pstmt.setString(5,course.getCourseDuration());
             pstmt.setString(6,course.getFlag());
-            pstmt.setString(7,course.getClasses());
-            pstmt.setString(8,course.getStartTime());
-            pstmt.setInt(9,course.getSemester());
-            pstmt.setInt(10,course.getNumOfStu());
+            pstmt.setInt(7,course.getClassDay());
+            pstmt.setString(8 , course.getClassTime());
+            pstmt.setString(9,course.getStartTime());
+            pstmt.setInt(10,course.getSemester());
+            pstmt.setInt(11,course.getNumOfStu());
             rows = pstmt.executeUpdate();
         }catch (SQLException e){
             System.out.println("DAO添加课程出错：" + sql + "," + e.getMessage());
@@ -287,11 +288,5 @@ public class CourseDaoImpl extends BaseDao implements CourseDao{
             );
         }
         return num;
-    }
-
-
-    public static void main(String[] args) {
-        CourseDaoImpl courseDao = new CourseDaoImpl();
-        courseDao.findByTId(123);
     }
 }

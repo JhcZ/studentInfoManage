@@ -2,7 +2,9 @@ package Filter;
 
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
+import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
@@ -16,6 +18,8 @@ public class EncodingFilter implements Filter {
         } else{
             req = new EncodingReqWrapper(req);
         }
-        filterChain.doFilter(req,servletResponse);
+        HttpServletResponse resp = (HttpServletResponse) servletResponse;
+        resp.setContentType("text/html;charset=utf-8");
+        filterChain.doFilter(req,resp);
     }
 }

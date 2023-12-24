@@ -16,6 +16,11 @@ public class Course {
     private String classes;  //开设班级
     private String startTime;  //课程开始时间
     private int semester;  //课程开设学期
+
+    private int classDay; // 上课日期（周几） 1 2 3 4 5 6 7
+
+    private String classTime; // 上课时间（哪几节课） "1,2,3"表示1，2，3节课
+
     private int numOfStu;  //选课人数
 
     public int getCourseId() {
@@ -135,5 +140,21 @@ public class Course {
 
     public void setTeacherId(int teacherId) {
         this.teacherId = teacherId;
+    }
+
+    public int getClassDay() {
+        return classDay;
+    }
+
+    public void setClassDay(int classDay) {
+        this.classDay = classDay;
+    }
+
+    public String getClassTime() {
+        return classTime;
+    }
+
+    public void setClassTime(String classTime) {
+        this.classTime = classTime;
     }
 }

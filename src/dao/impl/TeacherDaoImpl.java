@@ -79,10 +79,12 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
                 course.setLocation(rs.getString("location"));
                 course.setCourseDuration(rs.getString("courseDuration"));
                 course.setFlag(rs.getString("flag"));
-                course.setClasses(rs.getString("classes"));
-                course.setStartTime(String.valueOf(rs.getTime("startTime")));
+                course.setClassDay(Integer.parseInt(rs.getString("classDay")));
+                course.setClassTime(rs.getString("classTime"));
+                course.setStartTime(rs.getString("startTime"));
+                System.out.println(rs.getString("startTime"));
                 course.setSemester(rs.getInt("semester"));
-                course.setNumOfStu(rs.getInt("courseId"));
+                course.setNumOfStu(rs.getInt("numOfStu"));
                 courseList.add(course);
             }
         } catch (SQLException e) {

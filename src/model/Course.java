@@ -127,7 +127,8 @@ public class Course {
                 //"teacher" + teacher.getTeacherId() + "," +
                 "location" + location + "," +
                 "courseDuration" + courseDuration + "," +
-                "classes" + classes + "," +
+                "classDay" + classDay + "," +
+                "classTime" + classTime + "," +
                 "startTime" + startTime + "," +
                 "semester" + semester + "," +
                 "numOfStu" + numOfStu + "," +

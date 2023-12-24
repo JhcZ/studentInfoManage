@@ -43,9 +43,10 @@
         <th>上课地点</th>
         <th>上课周数</th>
         <th>课程类别</th>
-        <th>开设班级</th>
-        <th>课程开始时间</th>
-        <th>课程开设学期</th>
+        <th>上课日期</th>
+        <th>上课时间</th>
+        <th>开课时间</th>
+        <th>开设学期</th>
         <th>选课人数</th>
     </tr>
     </thead>
@@ -68,13 +69,15 @@
         tableBody.innerHTML = '';
         courses.forEach(course => {
             const row = document.createElement('tr');
-            console.log("<td>" + course.courseId + "</td>" ,
+            console.log(
+   "<td>" + course.courseId + "</td>" ,
   "<td>" + course.name + "</td>",
   "<td>" + course.teacherId + "</td>",
   "<td>" + course.location + "</td>",
   "<td>" + course.courseDuration + "</td>",
   "<td>" + course.flag + "</td>",
-  "<td>" + course.classes + "</td>",
+  "<td>" + course.classDay + "</td>",
+  "<td>" + course.classTime + "</td>",
   "<td>" + course.startTime + "</td>",
   "<td>" + course.semester + "</td>",
   "<td>" + course.numOfStu + "</td>");
@@ -86,7 +89,8 @@
   "<td>" + course.location + "</td>" +
   "<td>" + course.courseDuration + "</td>" +
   "<td>" + course.flag + "</td>" + 
-  "<td>" + course.classes + "</td>" + 
+  "<td>" + course.classDay + "</td>" +
+  "<td>" + course.classTime + "</td>" +
   "<td>" + course.startTime + "</td>" +
   "<td>" + course.semester + "</td>" + 
   "<td>" + course.numOfStu + "</td>";

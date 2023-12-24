@@ -30,22 +30,6 @@ create table if not exists application_course_cache
     primary key (courseId)
 );
 
-create table if not exists application_courseupdate_cache
-(
-    courseId       int          not null,
-    name           varchar(10)  null,
-    teacher        int          null,
-    location       varchar(15)  null,
-    courseDuration varchar(15)  null,
-    flag           varchar(5)   null,
-    classes        varchar(100) null,
-    startTime      date         null,
-    semester       int          null,
-    numOfStu       int          null,
-    approval       varchar(10)  null,
-    primary key (courseId)
-);
-
 create table if not exists course_application
 (
     kind        varchar(10) null comment '申请类别',

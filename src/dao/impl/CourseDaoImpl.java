@@ -13,11 +13,14 @@ public class CourseDaoImpl extends BaseDao implements CourseDao{
     @Override
     public int getCourseSelectionCount(int courseId) {
         int num = 0;
-        String sql = "SELECT COUNT(*) FROM stu_choose WHERE courseId=?";
+        String sql = "SELECT COUNT(*) FROM stu_choose WHERE cId=?";
         try{
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1,courseId);
-            num = pstmt.executeUpdate();
+            rs = pstmt.executeQuery();
+            if(rs.next()) {
+                num = rs.getInt(1);
+            }
         }catch (SQLException e){
             System.out.println("DAO查询选课人数错误：" + sql + "," + e.getMessage());
         }
@@ -129,7 +132,9 @@ public class CourseDaoImpl extends BaseDao implements CourseDao{
                 course.setLocation(rs.getString("location"));
                 course.setCourseDuration(rs.getString("courseDuration"));
                 course.setFlag(rs.getString("flag"));
-                course.setClasses(rs.getString("classes"));
+                course.setClassDay(rs.getInt("classDay"));
+                course.setClassTime(rs.getString("classTime"));
+                course.setStartTime(String.valueOf(rs.getTime("startTime")));
                 course.setStartTime(String.valueOf(rs.getTime("startTime")));
                 course.setSemester(rs.getInt("semester"));
                 course.setNumOfStu(getCourseSelectionCount(rs.getInt("courseId")));
@@ -176,7 +181,8 @@ public class CourseDaoImpl extends BaseDao implements CourseDao{
                 course.setLocation(rs.getString("location"));
                 course.setCourseDuration(rs.getString("courseDuration"));
                 course.setFlag(rs.getString("flag"));
-                course.setClasses(rs.getString("classes"));
+                course.setClassDay(rs.getInt("classDay"));
+                course.setClassTime(rs.getString("classTime"));
                 course.setStartTime(String.valueOf(rs.getTime("startTime")));
                 course.setSemester(rs.getInt("semester"));
                 course.setNumOfStu(getCourseSelectionCount(rs.getInt("courseId")));
@@ -216,7 +222,7 @@ public class CourseDaoImpl extends BaseDao implements CourseDao{
     @Override
     public int update(Course course) {
         int rows = 0;
-        String sql = "UPDATE course_table SET name=?,teacher=?,location=?,courseDuration=?,flag=?,classes=?,startTime=?,semester=?,numOfStu=? WHERE courseId=?";
+        String sql = "UPDATE course_table SET name=?,teacher=?,location=?,courseDuration=?,flag=?,classDay=?,classTime=?,startTime=?,semester=?,numOfStu=? WHERE courseId=?";
 
         try{
             pstmt = conn.prepareStatement(sql);
@@ -225,11 +231,12 @@ public class CourseDaoImpl extends BaseDao implements CourseDao{
             pstmt.setString(3,course.getLocation());
             pstmt.setString(4,course.getCourseDuration());
             pstmt.setString(5,course.getFlag());
-            pstmt.setString(6,course.getClasses());
-            pstmt.setString(7,course.getStartTime());
-            pstmt.setInt(8,course.getSemester());
-            pstmt.setInt(9,course.getNumOfStu());
-            pstmt.setInt(10,course.getCourseId());
+            pstmt.setInt(6,course.getClassDay());
+            pstmt.setString(7 , course.getClassTime());
+            pstmt.setString(8,course.getStartTime());
+            pstmt.setInt(9,course.getSemester());
+            pstmt.setInt(10,course.getNumOfStu());
+            pstmt.setInt(11,course.getCourseId());
         }catch (SQLException e){
             System.out.println("DAO更新课程错误：" + sql + "," + e.getMessage());
         }
@@ -259,7 +266,7 @@ public class CourseDaoImpl extends BaseDao implements CourseDao{
     @Override
     public int count(Course condition) {
         int num = 0;
-        String sql = "SELECT count(*) FROM course_table WHERE (1=1)";
+        String sql = "SELECT count(*) FROM course_table";
         if(condition != null){
             sql += " WHERE 1=1";
             if(condition.getCourseId() != 0){

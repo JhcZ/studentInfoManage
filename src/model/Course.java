@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Course {
+
+    public static Course emtpyCourse = new Course(); // 空对象，简化创建过程
     private int courseId;  //课程号
     private String name;  //课程名称
 

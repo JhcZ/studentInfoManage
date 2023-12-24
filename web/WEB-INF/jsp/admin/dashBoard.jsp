@@ -8,9 +8,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <base href="http://${header.host}${pageContext.request.contextPath}/admin/">
+    <meta charset="utf-8">
     <title>主页</title>
 </head>
 <body>
-<span>dashboard</span>
+<span>dashboard</span><br/>
+<a href="course/add.do">添加课程</a><br/>
+<a href="course/list.do">课程列表</a>
 </body>
 </html>

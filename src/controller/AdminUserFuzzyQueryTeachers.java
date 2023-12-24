@@ -25,8 +25,6 @@ public class AdminUserFuzzyQueryTeachers extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("application/json");
-
         Teacher fuzzy = new Teacher();
         List<Teacher> teachers = null;
         String query = req.getParameter("q");

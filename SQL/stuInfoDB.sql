@@ -23,6 +23,8 @@ create table if not exists application_course_cache
     courseDuration varchar(15)  null,
     flag           varchar(5)   null,
     classes        varchar(100) null,
+    classDay       int          null comment '周几上课',
+    classTime      varchar(10)  null comment '第几节课',
     startTime      date         null,
     semester       int          null,
     numOfStu       int          null,

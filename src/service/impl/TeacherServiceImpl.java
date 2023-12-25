@@ -3,6 +3,7 @@ package service.impl;
 import dao.TeacherDao;
 import dao.impl.TeacherDaoImpl;
 import model.Course;
+import model.CourseApprovalUpdate;
 import model.Teacher;
 import service.TeacherService;
 import util.Encrypt;
@@ -49,6 +50,43 @@ public class TeacherServiceImpl implements TeacherService {
         }
         return teacherDao.queryCourse(teacherId);
     }
+
+    @Override
+    public int modCourse(CourseApprovalUpdate course) {
+        if (course == null){
+            return 0;
+        }
+        int courseId = course.getCourse().getCourseId();
+        if (teacherDao.isApply(courseId)){
+            System.out.println("已经有过修改申请,直接覆盖");
+            return teacherDao.courseApprovalUpdate(course);
+
+        }
+        return teacherDao.modCourse(course);
+    }
+
+    @Override
+    public boolean isApply(int courseId) {
+        return teacherDao.isApply(courseId);
+    }
+
+    @Override
+    public Course findCourseById(int courseId) {
+        if (courseId < 0){
+            System.out.println("id非法");
+            return null;
+        }
+        return teacherDao.findCourseById(courseId);
+    }
+
+    @Override
+    public List<CourseApprovalUpdate> queryApply(String teacherId) {
+        if (teacherId == null || teacherId.equals("")){
+            return null;
+        }
+        return teacherDao.queryApply(teacherId);
+    }
+
 
     /**
      * 模糊查询

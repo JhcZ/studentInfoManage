@@ -34,6 +34,7 @@
     </style>
 </head>
 <body>
+
 <table id="courseTable">
     <thead>
     <tr>
@@ -93,10 +94,11 @@
   "<td>" + course.classTime + "</td>" +
   "<td>" + course.startTime + "</td>" +
   "<td>" + course.semester + "</td>" + 
-  "<td>" + course.numOfStu + "</td>";
+  "<td>" + course.numOfStu + "</td>" ;
             tableBody.appendChild(row);
         });
     }
+    
 </script>
 </body>
 

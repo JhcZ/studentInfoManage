@@ -15,6 +15,7 @@
     <title>List</title>
 </head>
 <body>
+
 <div>
     <div class="box">
         <a href="update.do">修改个人信息</a>
@@ -26,7 +27,10 @@
         <a href="update.do">开课申请</a>
     </div>
     <div class="box">
-        <a href="update.do">课程修改申请</a>
+        <a href="mod.do">课程修改申请</a>
+    </div>
+    <div class="box">
+        <a href="modlist.do">修改申请列表</a>
     </div>
     <div class="box">
         <a href="course.do">查询上课课程</a>

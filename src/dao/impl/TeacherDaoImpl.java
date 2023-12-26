@@ -140,7 +140,7 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
             ResultSet resultSet = pstmt.executeQuery();
             while (resultSet.next()){
                 int rs = resultSet.getInt("courseId");
-                return rs == 1;
+                return rs == courseId;
             }
             return false;
         } catch (SQLException e) {

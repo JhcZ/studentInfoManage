@@ -18,7 +18,7 @@ import java.util.List;
 
 //后台：管理员查询所有学生
 @WebServlet(urlPatterns = {"/admin/customer/list","/admin/customer/query"})
-public class StudentListController extends HttpServlet {
+public class StudentListServlet extends HttpServlet {
     StudentService studentService = new StudentServiceImpl();
 
     @Override
@@ -76,5 +76,10 @@ public class StudentListController extends HttpServlet {
                 req.getRequestDispatcher("mod.do").forward(req,resp);
             }
         }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doPost(req, resp);
     }
 }

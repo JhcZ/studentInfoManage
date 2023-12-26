@@ -11,6 +11,7 @@
     <title>$Title$</title>
   </head>
   <body>
-  $END$
+  <h1 style="color: red; text-align: center">JSP+Servlet方式实现学生信息管理系统</h1>
+  <h3 style="text-align: center"><a href="student/login">跳转到登录页面</a></h3>
   </body>
 </html>

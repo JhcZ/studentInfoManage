@@ -34,7 +34,7 @@ public class StudentDaoImpl extends BaseDao implements StudentDao {
                 student.setStatus(rs.getString("status"));
             }
         }catch (SQLException e){
-            System.out.println("DAO验证用户出错：" + sql + "," + e.getMessage());
+            System.out.println("DAO验证用户错误：" + sql + "," + e.getMessage());
         }
         return student;
     }

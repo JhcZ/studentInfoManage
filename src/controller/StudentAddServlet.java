@@ -13,7 +13,7 @@ import java.io.IOException;
 
 //后台：管理员添加学生
 @WebServlet(urlPatterns = "/admin/student/add")
-public class StudentAddController extends HttpServlet {
+public class StudentAddServlet extends HttpServlet {
     StudentService studentService = new StudentServiceImpl();
 
     @Override
@@ -26,5 +26,10 @@ public class StudentAddController extends HttpServlet {
         req.getSession().setAttribute("action","添加学生" + student.getName());
 
         resp.sendRedirect("list");
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doPost(req, resp);
     }
 }

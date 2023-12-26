@@ -13,7 +13,7 @@ import java.io.IOException;
 
 //后台修改学生状态,已毕业或请假或休学
 @WebServlet(urlPatterns = {"/admin/student/graduation","/admin/student/leave","/admin/student/break"})
-public class StudentStatusModController extends HttpServlet {
+public class StudentStatusModServlet extends HttpServlet {
     StudentService studentService = new StudentServiceImpl();
 
     @Override

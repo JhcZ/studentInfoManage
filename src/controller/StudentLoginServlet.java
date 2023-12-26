@@ -15,24 +15,25 @@ import java.io.IOException;
 
 //前台：学生登录
 @WebServlet(urlPatterns = {"/student/login"})
-public class StudentLoginController extends HttpServlet {
+public class StudentLoginServlet extends HttpServlet {
     StudentService studentService = new StudentServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("utf-8");
         User user = new User();
-        user.setId(Integer.parseInt(req.getParameter("studentId")));
-        user.setPassword(req.getParameter("password"));
+        String studentId = req.getParameter("studentId");
+        String password = req.getParameter("password");
 
         //登录失败
-        if(user.getId() == 0 || user.getPassword() == null || user.getPassword().isEmpty()){
+        if(studentId == null || password == null || password.isEmpty()){
             System.out.println("Servlet登录失败：用户名或密码错误：" + user);
             resp.sendRedirect("login.do");
             return;
         }
         //验证码错误
         String inputCode =req.getParameter("inputCode");
-        if(inputCode == null && inputCode.isEmpty()){
+        if(inputCode == null || inputCode.isEmpty()){
             System.out.println("Servlet登录失败：验证码为空：");
             resp.sendRedirect("login.do");
             return;
@@ -49,6 +50,8 @@ public class StudentLoginController extends HttpServlet {
         }
 
         //检查数据库中是否存在该学生信息
+        user.setId(Integer.parseInt(studentId));
+        user.setPassword(password);
         Student student = studentService.check(user);
         if(student == null){
             System.out.println("Servlet用户登录失败: 数据库查询失败" + student);
@@ -59,6 +62,11 @@ public class StudentLoginController extends HttpServlet {
 
         session.setAttribute("student",student);
 
-        resp.sendRedirect(req.getContextPath() + "/student/info");
+        resp.sendRedirect("info");
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doPost(req, resp);
     }
 }

@@ -28,4 +28,5 @@ public interface TeacherDao extends SimpleDao<Teacher>{
     //查询修改课程申请
     List<CourseApprovalUpdate> queryApply(String teacherId);
 
+
 }

@@ -35,9 +35,9 @@ create table if not exists application_course_cache
 
 create table if not exists course_application
 (
-    kind        varchar(10) null comment '申请类别',
+    kind        int null comment '申请类别',
     applicantId int         not null comment '申请人',
-    cId         int         null comment '课程号',
+    cName       varchar(10) null comment '课程名',
     primary key (applicantId)
 );
 

@@ -14,8 +14,8 @@
     
     <c:otherwise>
     <li class="	<%=request.getParameter("1")%>"><a href="${pageContext.request.contextPath}/student/info">首页</a></li>
-	<li class="	<%=request.getParameter("2")%>"><a href="${pageContext.request.contextPath}/scoreUrl">成绩查询</a></li>
-	<li class="	<%=request.getParameter("3")%>"><a href="${pageContext.request.contextPath}/infoUrl">档案查询</a></li>
+	<li class="	<%=request.getParameter("2")%>"><a href="${pageContext.request.contextPath}/student/score">成绩查询</a></li>
+	<li class="	<%=request.getParameter("3")%>"><a href="${pageContext.request.contextPath}/student/personInfo">档案查询</a></li>
     </c:otherwise>
     </c:choose>
     

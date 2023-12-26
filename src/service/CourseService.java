@@ -19,12 +19,7 @@ public interface CourseService {
 
     boolean add(Course course);
 
-    List<Student> get(Student condition, int page, int pageSize);
-
-    List<Teacher> get(Teacher condition, int page, int pageSize);
-
-    // 根据Id获取Course
-    Course getById(int id);
-
     int addCourse(Course course);
+
+    List<Course> getByStudentId(int studentId);
 }

@@ -1,13 +1,15 @@
 package model;
 
+import java.util.Date;
+
 public class Score {
     private int id;
-    private Student student;
-    private Course course;
+    private int studentId;
+    private int courseId;
     private double maxScore;  //某课程最高成绩
     private double minScore;  //某课程最低成绩
     private int passed;  //某课程及格人数
-    private int grade;
+    private double grade;
 
     public int getId() {
         return id;
@@ -17,20 +19,20 @@ public class Score {
         this.id = id;
     }
 
-    public Student getStudent() {
-        return student;
+    public int getStudentId() {
+        return studentId;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setStudentId(int studentId) {
+        this.studentId = studentId;
     }
 
-    public Course getCourse() {
-        return course;
+    public int getCourseId() {
+        return courseId;
     }
 
-    public void setCourse(Course course) {
-        this.course = course;
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
     }
 
     public double getMaxScore() {
@@ -57,24 +59,24 @@ public class Score {
         this.passed = passed;
     }
 
-    public int getGrade() {
+    public Double getGrade() {
         return grade;
     }
 
-    public void setGrade(int grade) {
+    public void setGrade(double grade) {
         this.grade = grade;
     }
 
     @Override
     public String toString() {
         return "Score{" +
-                "id" + id + "," +
-                "studentId" + student.getStudentId() + "," +
-                "courseId" + course.getCourseId() + "," +
-                "grade" + grade + "," +
-                "maxScore" + maxScore + "," +
-                "minScore" + minScore + "," +
-                "passed" + passed +
+                "id：" + id + "," +
+                "studentId：" + studentId + "," +
+                "courseId：" + courseId + "," +
+                "grade：" + grade + "," +
+                "maxScore：" + maxScore + "," +
+                "minScore：" + minScore + "," +
+                "passed：" + passed +
                 "}";
     }
 }

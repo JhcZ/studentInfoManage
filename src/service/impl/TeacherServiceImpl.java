@@ -3,6 +3,7 @@ package service.impl;
 import dao.TeacherDao;
 import dao.impl.TeacherDaoImpl;
 import model.Course;
+import model.CourseApprovalCache;
 import model.CourseApprovalUpdate;
 import model.Teacher;
 import service.TeacherService;
@@ -85,6 +86,15 @@ public class TeacherServiceImpl implements TeacherService {
             return null;
         }
         return teacherDao.queryApply(teacherId);
+    }
+
+    @Override
+    public int openCourse(CourseApprovalCache courseApprovalCache) {
+        if (courseApprovalCache == null){
+            return 0;
+        }
+        return teacherDao.openCourse(courseApprovalCache);
+
     }
 
 

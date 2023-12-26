@@ -1,6 +1,7 @@
 package service;
 
 import model.Course;
+import model.CourseApprovalCache;
 import model.CourseApprovalUpdate;
 import model.Teacher;
 
@@ -28,5 +29,7 @@ public interface TeacherService {
     //查询教师的修改课程申请
     List<CourseApprovalUpdate> queryApply(String teacherId);
 
+    //开课申请
+    int openCourse(CourseApprovalCache courseApprovalCache);
     List<Teacher> fuzzQuery(Teacher condition);
 }

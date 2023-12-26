@@ -15,7 +15,6 @@ public class Course {
     private String location;  //上课地点
     private String courseDuration;  //上课周数
     private String flag;  //课程类别
-    private String classes;  //开设班级
     private String startTime;  //课程开始时间
     private int semester;  //课程开设学期
 
@@ -73,13 +72,7 @@ public class Course {
         this.flag = flag;
     }
 
-    public String getClasses() {
-        return classes;
-    }
 
-    public void setClasses(String classes) {
-        this.classes = classes;
-    }
 
     public String getStartTime() {
         return startTime;

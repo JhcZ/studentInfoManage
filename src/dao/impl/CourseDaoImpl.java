@@ -287,7 +287,7 @@ public class CourseDaoImpl extends BaseDao implements CourseDao{
     @Override
     public int count(Course condition) {
         int num = 0;
-        String sql = "SELECT count(*) FROM course_table WHERE (1=1)";
+        String sql = "SELECT count(*) FROM course_table";
         if(condition != null){
             sql += " WHERE 1=1";
             if(condition.getCourseId() != 0){

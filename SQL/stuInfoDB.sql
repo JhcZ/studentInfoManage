@@ -71,7 +71,7 @@ create table if not exists teacher_table
 
 create table if not exists course_table
 (
-    courseId       int          not null comment '课程号',
+    courseId       int     auto_increment     not null comment '课程号',
     name           varchar(10)  null comment '课程名称',
     teacher        int          null comment '授课教师',
     location       varchar(15)  null comment '上课地点',

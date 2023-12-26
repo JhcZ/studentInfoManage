@@ -42,20 +42,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Student> get(Student condition, int page, int pageSize) {
-        //TODO
-        return null;
-    }
-
-    @Override
-    public List<Teacher> get(Teacher condition, int page, int pageSize) {
-        //TODO
-        return null;
-    }
-
-    @Override
-    public Course getById(int id) {
-        return null;
+    public List<Course> getByStudentId(int studentId) {
+        return courseDao.findByStudentId(studentId);
     }
 
     @Override

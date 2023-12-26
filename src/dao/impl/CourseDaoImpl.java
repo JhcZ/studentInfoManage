@@ -17,8 +17,8 @@ public class CourseDaoImpl extends BaseDao implements CourseDao{
         try{
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1,courseId);
-            rs = pstmt.executeQuery();
-            if(rs.next()) {
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()){
                 num = rs.getInt(1);
             }
         }catch (SQLException e){
@@ -31,7 +31,7 @@ public class CourseDaoImpl extends BaseDao implements CourseDao{
     public double getAverageScore(int courseId) {
         double avgScore = 0;
         int counts = getCourseSelectionCount(courseId);
-        String sql = "SELECT grade FROM score_table WHERE courseId=?";
+        String sql = "SELECT grade FROM score_table WHERE cId=?";
         try{
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1,courseId);
@@ -48,7 +48,7 @@ public class CourseDaoImpl extends BaseDao implements CourseDao{
     @Override
     public double getMaxScore(int courseId) {
         double highestScore = 0;
-        String sql = "SELECT MAX(grade) FROM score_table WHERE courseId=?";
+        String sql = "SELECT MAX(grade) FROM score_table WHERE cId=?";
         try{
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1,courseId);
@@ -65,7 +65,7 @@ public class CourseDaoImpl extends BaseDao implements CourseDao{
     @Override
     public double getMinScore(int courseId) {
         double lowestScore = 0;
-        String sql = "SELECT MIN(grade) FROM score_table WHERE courseId=?";
+        String sql = "SELECT MIN(grade) FROM score_table WHERE cId=?";
         try{
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1,courseId);
@@ -77,6 +77,28 @@ public class CourseDaoImpl extends BaseDao implements CourseDao{
             System.out.println("DAO查询最低分错误：" + sql + "," + e.getMessage());
         }
         return lowestScore;
+    }
+
+    @Override
+    public List<Course> findByStudentId(int studentId) {
+        List<Course> courseList = new ArrayList<>();
+        Course course = new Course();
+        String sql = "SELECT cId " +
+                "FROM student_table st " +
+                "JOIN stu_choose sc ON st.studentId = sc.stuId " +
+                "WHERE sc.stuId = ?";
+        try{
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,studentId);
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()){
+                course = findById(rs.getInt(1));
+                courseList.add(course);
+            }
+        }catch (SQLException e){
+            System.out.println("DAO通过学号查找课程错误：" + sql + "," + e.getMessage());
+        }
+        return courseList;
     }
 
     @Override
@@ -134,7 +156,6 @@ public class CourseDaoImpl extends BaseDao implements CourseDao{
                 course.setFlag(rs.getString("flag"));
                 course.setClassDay(rs.getInt("classDay"));
                 course.setClassTime(rs.getString("classTime"));
-                course.setStartTime(String.valueOf(rs.getTime("startTime")));
                 course.setStartTime(String.valueOf(rs.getTime("startTime")));
                 course.setSemester(rs.getInt("semester"));
                 course.setNumOfStu(getCourseSelectionCount(rs.getInt("courseId")));
@@ -232,7 +253,7 @@ public class CourseDaoImpl extends BaseDao implements CourseDao{
             pstmt.setString(4,course.getCourseDuration());
             pstmt.setString(5,course.getFlag());
             pstmt.setInt(6,course.getClassDay());
-            pstmt.setString(7 , course.getClassTime());
+            pstmt.setString(7,course.getClassTime());
             pstmt.setString(8,course.getStartTime());
             pstmt.setInt(9,course.getSemester());
             pstmt.setInt(10,course.getNumOfStu());
@@ -266,7 +287,7 @@ public class CourseDaoImpl extends BaseDao implements CourseDao{
     @Override
     public int count(Course condition) {
         int num = 0;
-        String sql = "SELECT count(*) FROM course_table";
+        String sql = "SELECT count(*) FROM course_table WHERE (1=1)";
         if(condition != null){
             sql += " WHERE 1=1";
             if(condition.getCourseId() != 0){

@@ -250,4 +250,5 @@ public class AdminUserDaoImpl extends BaseDao implements AdminUserDao{
         }
         return num;
     }
+
 }

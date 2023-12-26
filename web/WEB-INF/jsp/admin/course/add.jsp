@@ -10,7 +10,7 @@
 <html>
 <head>
     <base href="http://${header.host}${pageContext.request.contextPath}/admin/">
-    <meta charset="utf-8">
+            <meta charset="utf-8">
     <title>课程信息表单</title>
     <style>
         body {
@@ -48,7 +48,6 @@
             padding: 5px;
         }
     </style>
-    <!-- 链接 CSS -->
 </head>
 <body>
 <form id="courseForm" action="addCourse" method="post">

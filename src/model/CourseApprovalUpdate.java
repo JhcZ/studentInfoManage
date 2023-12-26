@@ -2,7 +2,7 @@ package model;
 
 public class CourseApprovalUpdate {
     private Course course;
-    private String approval;  //课程审批状态
+    private int approval;  //课程审批状态
 
     public Course getCourse() {
         return course;
@@ -12,11 +12,11 @@ public class CourseApprovalUpdate {
         this.course = course;
     }
 
-    public String getApproval() {
+    public int getApproval() {
         return approval;
     }
 
-    public void setApproval(String approval) {
+    public void setApproval(int approval) {
         this.approval = approval;
     }
 }

@@ -4,6 +4,7 @@ import dao.BaseDao;
 import dao.CourseDao;
 import dao.TeacherDao;
 import model.Course;
+import model.CourseApprovalUpdate;
 import model.Teacher;
 import util.Encrypt;
 
@@ -21,7 +22,6 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
     public Teacher findById(String id){
         Teacher teacher = null;
         String sql = "select * from teacher_table where teacherId = ?";
-
         try {
             pstmt =  conn.prepareStatement(sql);
             pstmt.setInt(1, Integer.parseInt(id));
@@ -92,6 +92,158 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
         }
 
         return courseList;
+    }
+
+
+    @Override
+    public int modCourse(CourseApprovalUpdate course) {
+        String sql = "INSERT INTO application_course_cache (courseId, name, teacher, location, " +
+                "courseDuration, flag, classes, classDay,classTime,startTime, semester, numOfStu, approval) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, course.getCourse().getCourseId());
+            pstmt.setString(2, course.getCourse().getName());
+            pstmt.setInt(3, course.getCourse().getTeacherId());
+            pstmt.setString(4, course.getCourse().getLocation());
+            pstmt.setString(5, course.getCourse().getCourseDuration());
+            pstmt.setString(6, course.getCourse().getFlag());
+            pstmt.setString(7, course.getCourse().getClasses());
+            pstmt.setString(8, course.getCourse().getStartTime());
+            pstmt.setInt(9,course.getCourse().getClassDay());
+            pstmt.setString(10,course.getCourse().getClassTime());
+            pstmt.setInt(11, course.getCourse().getSemester());
+            pstmt.setInt(12, course.getCourse().getNumOfStu());
+            pstmt.setInt(13, course.getApproval());
+            // 执行插入操作
+            int rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("插入成功！");
+                return 1;
+            } else {
+                System.out.println("插入失败！");
+                return 0;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    public boolean isApply(int courseId) {
+        String sql = "SELECT courseId FROM application_course_cache where courseId = ?";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,courseId);
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()){
+                int rs = resultSet.getInt("courseId");
+                return rs == 1;
+            }
+            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("该课程目前没有修改申请提交过");
+        return false;
+    }
+
+    @Override
+    public int courseApprovalUpdate(CourseApprovalUpdate course) {
+        String sql = "UPDATE application_course_cache " +
+                "SET name = ?, teacher = teacher, location = ?, courseDuration = ?, " +
+                "flag = flag, classes = classes, classDay = ?,classTime = ?,startTime = ?, semester = ?, " +
+                "numOfStu = numOfStu, approval = approval " +
+                "WHERE courseId = ?";
+
+        // 创建PreparedStatement对象
+        try {
+            pstmt = conn.prepareStatement(sql);
+            Course course1 = course.getCourse();
+            // 设置参数
+            pstmt.setString(1, course1.getName());
+            pstmt.setString(2, course1.getLocation());
+            pstmt.setString(3, course1.getCourseDuration());
+            pstmt.setInt(4,course1.getClassDay());
+            pstmt.setString(5,course1.getClassTime());
+            pstmt.setString(6, course1.getStartTime());
+            pstmt.setInt(7, course1.getSemester());
+            pstmt.setInt(8, course1.getCourseId());
+
+            // 执行更新操作
+            int rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("更新修改申请成功！");
+            } else {
+                System.out.println("更新失败！找不到匹配的记录。");
+            }
+            return rowsAffected;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    public Course findCourseById(int courseId) {
+        Course course = new Course();
+        String sql = "SELECT * FROM course_table where courseId = ?";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,courseId);
+            ResultSet rs = pstmt.executeQuery();
+            System.out.println("查询课程 :" + courseId);
+            while (rs.next()){
+                course.setCourseId(courseId);
+                course.setName(rs.getString("name"));
+                course.setTeacherId(rs.getInt("teacher"));
+                course.setLocation(rs.getString("location"));
+                course.setCourseDuration(rs.getString("courseDuration"));
+                course.setFlag(rs.getString("flag"));
+                course.setClassDay(Integer.parseInt(rs.getString("classDay")));
+                course.setClassTime(rs.getString("classTime"));
+                course.setStartTime(rs.getString("startTime"));
+                course.setSemester(rs.getInt("semester"));
+                course.setNumOfStu(rs.getInt("numOfStu"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return course;
+    }
+
+    @Override
+    public List<CourseApprovalUpdate> queryApply(String teacherId) {
+        List<CourseApprovalUpdate> list = new ArrayList<>();
+        String sql = "SELECT * FROM application_course_cache WHERE teacher = ?";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,teacherId);
+            // 执行查询操作
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                CourseApprovalUpdate update = new CourseApprovalUpdate();
+                Course course = new Course();
+                course.setCourseId(resultSet.getInt("courseId"));
+                course.setName(resultSet.getString("name"));
+                course.setTeacherId(Integer.parseInt(teacherId));
+                course.setLocation(resultSet.getString("location"));
+                course.setCourseDuration(resultSet.getString("courseDuration"));
+                course.setClassDay(resultSet.getInt("classDay"));
+                course.setClassTime(resultSet.getString("classTime"));
+                course.setStartTime(resultSet.getString("startTime"));
+                course.setSemester(resultSet.getInt("semester"));
+                update.setCourse(course);
+                update.setApproval(resultSet.getInt("approval"));
+                list.add(update);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
 

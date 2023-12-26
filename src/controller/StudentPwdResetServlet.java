@@ -13,7 +13,7 @@ import java.io.IOException;
 //前台：学生重置密码
 //后台：管理员重置学生密码
 @WebServlet(urlPatterns = {"/admin/student/reset","/student/reset"})
-public class StudentPwdResetController extends HttpServlet {
+public class StudentPwdResetServlet extends HttpServlet {
     StudentService studentService = new StudentServiceImpl();
 
     @Override

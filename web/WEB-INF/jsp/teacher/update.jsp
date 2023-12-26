@@ -16,6 +16,7 @@
     <script src="js/jquery.min.js"></script>
 </head>
 <body>
+
 <div class="row">
     <span>输入初始密码</span>
     <input type="password" id="initial_password" name="initial_password">
@@ -29,7 +30,7 @@
     <input type="password" id="up_password2" name="up_password2">
 </div>
 <div class="row">
-    <button id="submit" onclick="mysub()" >登录</button>
+    <button id="submit" onclick="mysub()" >提交</button>
 </div>
 <script>
     function mysub(){

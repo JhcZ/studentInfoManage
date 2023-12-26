@@ -1,6 +1,7 @@
 package service;
 
 import model.Course;
+import model.CourseApprovalUpdate;
 import model.Teacher;
 
 import java.sql.SQLException;
@@ -17,6 +18,15 @@ public interface TeacherService {
 
     //查询开课课程
     List<Course> queryCourse(String teacherId);
+    //课程修改申请
+    int modCourse(CourseApprovalUpdate course);
+
+    //该课程是否提交过修改申请
+    boolean isApply(int courseId);
+    //通过id查询课程
+    Course findCourseById(int courseId);
+    //查询教师的修改课程申请
+    List<CourseApprovalUpdate> queryApply(String teacherId);
 
     List<Teacher> fuzzQuery(Teacher condition);
 }

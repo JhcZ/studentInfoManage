@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Random;
 
 //前后台：生成验证码
-@WebServlet(urlPatterns = {"/admin/validCode", "/customer/validCode"})
+@WebServlet(urlPatterns = {"/admin/validCode", "/student/validCode"})
 public class ValidCodeServlet extends HttpServlet{
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

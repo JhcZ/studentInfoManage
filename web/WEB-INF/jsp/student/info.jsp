@@ -29,7 +29,7 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<!-- 导航条菜单 -->
-			<%@ include file="/WEB-INF/jsp/student/header_nav_template.jsp"%>
+			<%@ include file="../header_nav_template.jsp"%>
 		</div>
 	</div>
 </nav>
@@ -38,7 +38,7 @@
 	<div class="row">
 		<div class="col-sm-3 col-md-2 sidebar">
 			<!-- 侧边栏 -->
-			<jsp:include page="/WEB-INF/jsp/student/side_nav_template.jsp">
+			<jsp:include page="../side_nav_template.jsp">
 				<jsp:param value="active" name="1" />
 			</jsp:include>
 		</div>

@@ -71,6 +71,26 @@
 </form>
 
 <script>
+    function logout(){
+        $.ajax({
+            url:"/studentInfo/teacher/logout",
+            type:"GET",
+
+            success:function(result){
+                if(result!=null && result==="success"){
+                    console.log(result);
+                    //注销成功
+                    location.href="login.do";
+                }else{
+                    alert("登录失败，用户名或密码错误!");
+                }
+            },
+            error:function (){
+                location.href="login.do";
+            }
+        })
+    }
+
     $(document).ready(function() {
         $('form').submit(function(event) {
             event.preventDefault(); // 阻止表单提交

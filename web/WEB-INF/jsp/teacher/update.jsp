@@ -61,6 +61,25 @@
     <button id="submit" onclick="mysub()" >提交</button>
 </div>
 <script>
+    function logout(){
+        $.ajax({
+            url:"/studentInfo/teacher/logout",
+            type:"GET",
+
+            success:function(result){
+                if(result!=null && result==="success"){
+                    console.log(result);
+                    //注销成功
+                    location.href="login.do";
+                }else{
+                    alert("登录失败，用户名或密码错误!");
+                }
+            },
+            error:function (){
+                location.href="login.do";
+            }
+        })
+    }
     function mysub(){
         //1.非空校验
         var initial_password = jQuery("#initial_password");

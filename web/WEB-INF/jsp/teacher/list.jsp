@@ -34,6 +34,7 @@
             margin-left: 10px;
         }
     </style>
+
 </head>
 <body>
 <div class="navbar">
@@ -66,5 +67,26 @@
         <a href="course.do">查询上课课程</a>
     </div>
 </div>
+<script>
+    function logout(){
+        $.ajax({
+            url:"/studentInfo/teacher/logout",
+            type:"GET",
+
+            success:function(result){
+                if(result!=null && result==="success"){
+                    console.log(result);
+                    //注销成功
+                    location.href="login.do";
+                }else{
+                    alert("登录失败，用户名或密码错误!");
+                }
+            },
+            error:function (){
+                location.href="login.do";
+            }
+        })
+    }
+</script>
 </body>
 </html>

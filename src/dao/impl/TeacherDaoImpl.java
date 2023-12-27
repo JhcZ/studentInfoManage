@@ -248,11 +248,11 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
 
     @Override
     public int openCourse(CourseApprovalCache courseApprovalCache) {
-        String sql = "INSERT INTO course_application (kind, applicantId, cName,approval) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO course_application (kind, tId, cName,approval) VALUES (?, ?, ?, ?)";
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1,courseApprovalCache.getKind());
-            pstmt.setInt(2,courseApprovalCache.getApplicantId());
+            pstmt.setInt(2,courseApprovalCache.gettId());
             pstmt.setString(3,courseApprovalCache.getcName());
             pstmt.setInt(4,courseApprovalCache.getApproval());
             int rowsAffected = pstmt.executeUpdate();

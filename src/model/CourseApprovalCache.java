@@ -2,9 +2,18 @@ package model;
 
 public class CourseApprovalCache {
     private int kind; //课程类别
-    private int applicantId; //申请人
+    private int applicantId; //申请ID
+    private int tId; // 申请人
     private String cName; //课程名
     private int approval;  //课程审批状态
+
+    public int gettId() {
+        return tId;
+    }
+
+    public void settId(int tId) {
+        this.tId = tId;
+    }
 
     public int getKind() {
         return kind;

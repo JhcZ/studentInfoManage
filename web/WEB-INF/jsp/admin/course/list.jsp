@@ -110,8 +110,20 @@
 
   function deleteCourse(courseId) {
     if (confirm('确认删除课程吗？')) {
-      // 在这里处理删除逻辑，比如发送 Ajax 请求到后端
-
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "course/delete?id=" + courseId, true); // 假设的删除课程的 API
+      xhr.onreadystatechange = function() {
+        if (this.readyState === 4) {
+          if(this.status === 200) {
+            // 成功删除后，从表格中移除该课程的行
+            window.location.reload();
+          } else {
+            // 错误处理
+            console.error("删除失败: ", this.responseText);
+          }
+        }
+      };
+      xhr.send();
     }
   }
 

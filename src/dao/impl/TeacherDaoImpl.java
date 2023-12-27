@@ -4,6 +4,7 @@ import dao.BaseDao;
 import dao.CourseDao;
 import dao.TeacherDao;
 import model.Course;
+import model.CourseApprovalCache;
 import model.CourseApprovalUpdate;
 import model.Teacher;
 import util.Encrypt;
@@ -98,7 +99,7 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
     @Override
     public int modCourse(CourseApprovalUpdate course) {
         String sql = "INSERT INTO application_course_cache (courseId, name, teacher, location, " +
-                "courseDuration, flag, classes, classDay,classTime,startTime, semester, numOfStu, approval) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "courseDuration, flag, classDay,classTime,startTime, semester, numOfStu, approval) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, course.getCourse().getCourseId());
@@ -107,13 +108,12 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
             pstmt.setString(4, course.getCourse().getLocation());
             pstmt.setString(5, course.getCourse().getCourseDuration());
             pstmt.setString(6, course.getCourse().getFlag());
-            pstmt.setString(7, course.getCourse().getClasses());
-            pstmt.setString(8, course.getCourse().getStartTime());
-            pstmt.setInt(9,course.getCourse().getClassDay());
-            pstmt.setString(10,course.getCourse().getClassTime());
-            pstmt.setInt(11, course.getCourse().getSemester());
-            pstmt.setInt(12, course.getCourse().getNumOfStu());
-            pstmt.setInt(13, course.getApproval());
+            pstmt.setString(9, course.getCourse().getStartTime());
+            pstmt.setInt(7,course.getCourse().getClassDay());
+            pstmt.setString(8,course.getCourse().getClassTime());
+            pstmt.setInt(10, course.getCourse().getSemester());
+            pstmt.setInt(11, course.getCourse().getNumOfStu());
+            pstmt.setInt(12, course.getApproval());
             // 执行插入操作
             int rowsAffected = pstmt.executeUpdate();
 
@@ -140,7 +140,7 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
             ResultSet resultSet = pstmt.executeQuery();
             while (resultSet.next()){
                 int rs = resultSet.getInt("courseId");
-                return rs == 1;
+                return rs == courseId;
             }
             return false;
         } catch (SQLException e) {
@@ -244,6 +244,29 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
             e.printStackTrace();
         }
         return list;
+    }
+
+    @Override
+    public int openCourse(CourseApprovalCache courseApprovalCache) {
+        String sql = "INSERT INTO course_application (kind, tId, cName,approval) VALUES (?, ?, ?, ?)";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,courseApprovalCache.getKind());
+            pstmt.setInt(2,courseApprovalCache.gettId());
+            pstmt.setString(3,courseApprovalCache.getcName());
+            pstmt.setInt(4,courseApprovalCache.getApproval());
+            int rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("openCourse  ： 插入成功！");
+            } else {
+                System.out.println("openCourse  ： 插入失败");
+            }
+            return rowsAffected;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
 

@@ -1,6 +1,7 @@
 package dao;
 
 import model.Course;
+import model.CourseApprovalCache;
 import model.CourseApprovalUpdate;
 import model.Teacher;
 
@@ -28,5 +29,6 @@ public interface TeacherDao extends SimpleDao<Teacher>{
     //查询修改课程申请
     List<CourseApprovalUpdate> queryApply(String teacherId);
 
-
+    //开课申请
+    int openCourse(CourseApprovalCache courseApprovalCache);
 }

@@ -29,7 +29,7 @@ public class DBHelper {
             return conn;
         }
         //普通业务，直接从数据源中获取连接对象
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/stuInfoDB?characterEncoding=utf8", "root", "123456");
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/stuInfoDB?characterEncoding=utf8", "root", "12345");
         return conn;
     }
 

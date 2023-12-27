@@ -204,7 +204,7 @@ public class CourseDaoImpl extends BaseDao implements CourseDao{
                 course.setFlag(rs.getString("flag"));
                 course.setClassDay(rs.getInt("classDay"));
                 course.setClassTime(rs.getString("classTime"));
-                course.setStartTime(String.valueOf(rs.getTime("startTime")));
+                course.setStartTime(rs.getString("startTime"));
                 course.setSemester(rs.getInt("semester"));
                 course.setNumOfStu(getCourseSelectionCount(rs.getInt("courseId")));
                 courseList.add(course);
@@ -258,6 +258,7 @@ public class CourseDaoImpl extends BaseDao implements CourseDao{
             pstmt.setInt(9,course.getSemester());
             pstmt.setInt(10,course.getNumOfStu());
             pstmt.setInt(11,course.getCourseId());
+            rows = pstmt.executeUpdate();
         }catch (SQLException e){
             System.out.println("DAO更新课程错误：" + sql + "," + e.getMessage());
         }

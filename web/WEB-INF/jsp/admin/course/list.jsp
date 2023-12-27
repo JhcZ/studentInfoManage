@@ -80,6 +80,7 @@
     html += '<tr><th>ID</th><th>名称</th><th>教师</th><th>地点</th><th>周数</th><th>日期</th><th>时间</th><th>开课时间</th><th>学期</th><th>人数</th><th>操作</th></tr>';
 
     courses.forEach(function(course) {
+      console.log(course);
       html += '<tr>' +
               '<td>' + course.courseId + '</td>' +
               '<td>' + course.name + '</td>' +
@@ -129,7 +130,7 @@
 
   function viewDetails(courseId) {
     // 在这里处理查看详情逻辑，比如打开新页面或弹出窗口显示课程详细信息
-
+    window.location.href="course/details?id=" + courseId;
   }
 
 </script>

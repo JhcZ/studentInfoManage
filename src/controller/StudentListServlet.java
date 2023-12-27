@@ -14,72 +14,41 @@ import service.impl.StudentServiceImpl;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 //后台：管理员查询所有学生
-@WebServlet(urlPatterns = {"/admin/customer/list","/admin/customer/query"})
+@WebServlet(urlPatterns = {"/admin/student/list","/admin/student/query"})
 public class StudentListServlet extends HttpServlet {
     StudentService studentService = new StudentServiceImpl();
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
-        JakartaServletFileUpload upload =new JakartaServletFileUpload(factory);
-        List<DiskFileItem> fileItems =upload.parseRequest(req);
-
-        Student student = new Student();
-        for(DiskFileItem item : fileItems){
-            if(!item.isFormField()){
-                // 获取表单中除文件以外的其他控件值
-                if(item.getFieldName().equals("studentId")){
-                    student.setStudentId(Integer.parseInt(item.getString()));
-                }
-                if(item.getFieldName().equals("name")){
-                    student.setName(new String(item.getString().getBytes(StandardCharsets.ISO_8859_1),
-                            StandardCharsets.UTF_8));
-                }
-                if(item.getFieldName().equals("major")){
-                    new String(item.getString().getBytes(StandardCharsets.ISO_8859_1),
-                            StandardCharsets.UTF_8);
-                }
-                if(item.getFieldName().equals("department")){
-                    new String(item.getString().getBytes(StandardCharsets.ISO_8859_1),
-                            StandardCharsets.UTF_8);
-                }
-                if(item.getFieldName().equals("sex")){
-                    new String(item.getString().getBytes(StandardCharsets.ISO_8859_1),
-                            StandardCharsets.UTF_8);
-                }
-                if(item.getFieldName().equals("className")){
-                    new String(item.getString().getBytes(StandardCharsets.ISO_8859_1),
-                            StandardCharsets.UTF_8);
-                }
-                if(item.getFieldName().equals("phone")){
-                    new String(item.getString().getBytes(StandardCharsets.ISO_8859_1),
-                            StandardCharsets.UTF_8);
-                }
-                if(item.getFieldName().equals("status")){
-                    new String(item.getString().getBytes(StandardCharsets.ISO_8859_1),
-                            StandardCharsets.UTF_8);
-                }
-            }
-            if(studentService.mod(student)){
-                // 在会话范围内保存action属性，记录当前管理员的管理行为
-                // 监听器将监听到action属性的值发生变化这一事件，从而将管理员的管理行为记入日志文件中
-                req.getSession().setAttribute("action","修改学生信息" + student);
-
-                //修改成功，页面重定向至列表界面
-                resp.sendRedirect("list");
-            }else{
-                //修改失败，将请求转发至学生信息修改界面
-                req.setAttribute("student",student);
-                req.getRequestDispatcher("mod.do").forward(req,resp);
-            }
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("utf-8"); //处理中文乱码
+        Student condition = new Student();
+        condition.setName(req.getParameter("name"));
+        // 从客户端获取分页信息
+        int page = 1;
+        String sPage = req.getParameter("p");
+        if (sPage != null && !"".equals(sPage)) {
+            page = Integer.parseInt(req.getParameter("p"));
         }
+        int pageSize = 5;
+        int usersCount = studentService.count(condition);
+        int pageCount = usersCount % pageSize == 0 ? usersCount / pageSize : usersCount / pageSize + 1;
+        // 从模型层获取到查询结果
+        List<Student> studentList = studentService.get(condition, page, pageSize);
+        // 在请求范围内保存用户列表数据
+        req.setAttribute("studentList", studentList);
+        req.setAttribute("p", page);
+        req.setAttribute("pCount", pageCount);
+        // 页面跳转：请求转发至列表页面
+        req.getRequestDispatcher("list.do").forward(req, resp);
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req, resp);
     }
 }

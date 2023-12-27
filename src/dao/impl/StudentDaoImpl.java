@@ -127,7 +127,7 @@ public class StudentDaoImpl extends BaseDao implements StudentDao {
         List<Student> studentList = new ArrayList<>();
         String sql = "SELECT * FROM student_table";
         if(condition !=null){
-            sql += " WHERE =1=1";
+            sql += " WHERE 1=1";
             if(condition.getStudentId() != 0){
                 sql += " AND studentId='" + condition.getStudentId() + "'";
             }

@@ -18,13 +18,11 @@ public class StudentPwdResetServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String sId = req.getParameter("studentId");
+        String sId = req.getParameter("id");
         if(sId != null && !sId.isEmpty()){
             studentService.resetPwd(Integer.parseInt(sId));
         }
         if(req.getRequestURI().contains("admin")){
-            req.getSession().setAttribute("action","重置学生密码，学生id=" + sId);
-
             resp.sendRedirect("list");
         }else{
             resp.sendRedirect("login.do");

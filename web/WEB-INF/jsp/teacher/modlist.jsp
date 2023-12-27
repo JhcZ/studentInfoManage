@@ -49,7 +49,15 @@
                 tr.append("<td>" + course1.classTime + "</td>");
                 tr.append("<td>" + course1.startTime + "</td>");
                 tr.append("<td>" + course1.semester + "</td>");
-                tr.append("<td>" + (course1.approval === 1 ? "通过" : "未通过") + "</td>");
+                var approvalStatus = "";
+                if (course1.approval === 1) {
+                    approvalStatus = "通过";
+                } else if (course1.approval === -1) {
+                    approvalStatus = "不通过";
+                } else {
+                    approvalStatus = "未审批";
+                }
+                tr.append("<td>" + approvalStatus + "</td>");
                 $("#courseTable").append(tr);
             }
         },

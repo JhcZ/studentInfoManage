@@ -14,8 +14,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>修改密码</title>
     <script src="js/jquery.min.js"></script>
+    <style>
+        .navbar {
+            background-color: #f1f1f1;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-title {
+            font-size: 20px;
+            margin-right: auto;
+        }
+
+        .navbar-links {
+            margin-right: 20px;
+        }
+
+        .navbar-links a {
+            margin-left: 10px;
+        }
+    </style>
 </head>
 <body>
+<div class="navbar">
+    <div class="navbar-title">教师管理</div>
+    <div class="navbar-links">
+        <a href="list.do">主页</a>
+        <a href="#" onclick="logout()">注销</a>
+    </div>
+</div>
 
 <div class="row">
     <span>输入初始密码</span>

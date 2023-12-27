@@ -31,5 +31,6 @@ public interface TeacherService {
 
     //开课申请
     int openCourse(CourseApprovalCache courseApprovalCache);
+    List<CourseApprovalCache> queryOpen(String teacherId);
     List<Teacher> fuzzQuery(Teacher condition);
 }

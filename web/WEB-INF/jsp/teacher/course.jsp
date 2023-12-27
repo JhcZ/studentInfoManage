@@ -30,10 +30,35 @@
         th {
             background-color: #f2f2f2;
         }
+    .navbar {
+        background-color: #f1f1f1;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+    }
 
-    </style>
+    .navbar-title {
+        font-size: 20px;
+        margin-right: auto;
+    }
+
+    .navbar-links {
+        margin-right: 20px;
+    }
+
+    .navbar-links a {
+        margin-left: 10px;
+    }
+</style>
 </head>
 <body>
+<div class="navbar">
+    <div class="navbar-title">教师管理</div>
+    <div class="navbar-links">
+        <a href="list.do">主页</a>
+        <a href="#" onclick="logout()">注销</a>
+    </div>
+</div>
 
 <table id="courseTable">
     <thead>

@@ -31,4 +31,7 @@ public interface TeacherDao extends SimpleDao<Teacher>{
 
     //开课申请
     int openCourse(CourseApprovalCache courseApprovalCache);
+
+    //查询开课申请
+    List<CourseApprovalCache> queryOpen(String teacherId);
 }

@@ -1,0 +1,19 @@
+.navbar {
+    background-color: #f1f1f1;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-title {
+    font-size: 20px;
+    margin-right: auto;
+}
+
+.navbar-links {
+    margin-right: 20px;
+}
+
+.navbar-links a {
+    margin-left: 10px;
+}

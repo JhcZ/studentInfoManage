@@ -13,9 +13,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List</title>
+    <style>
+        .navbar {
+            background-color: #f1f1f1;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-title {
+            font-size: 20px;
+            margin-right: auto;
+        }
+
+        .navbar-links {
+            margin-right: 20px;
+        }
+
+        .navbar-links a {
+            margin-left: 10px;
+        }
+    </style>
 </head>
 <body>
-
+<div class="navbar">
+    <div class="navbar-title">教师管理</div>
+    <div class="navbar-links">
+        <a href="list.do">主页</a>
+        <a href="#" onclick="logout()">注销</a>
+    </div>
+</div>
 <div>
     <div class="box">
         <a href="update.do">修改个人信息</a>

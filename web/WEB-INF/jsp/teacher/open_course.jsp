@@ -11,8 +11,36 @@
     <title>Open Course</title>
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
     <script src="js/jquery.min.js"></script>
+    <style>
+        .navbar {
+            background-color: #f1f1f1;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-title {
+            font-size: 20px;
+            margin-right: auto;
+        }
+
+        .navbar-links {
+            margin-right: 20px;
+        }
+
+        .navbar-links a {
+            margin-left: 10px;
+        }
+    </style>
 </head>
 <body>
+<div class="navbar">
+    <div class="navbar-title">教师管理</div>
+    <div class="navbar-links">
+        <a href="list.do">主页</a>
+        <a href="#" onclick="logout()">注销</a>
+    </div>
+</div>
 <h1>课程申请表单</h1>
 <form id="courseApplicationForm">
     <label for="kind">申请类别:</label>
@@ -25,6 +53,25 @@
 </form>
 
 <script>
+    function logout(){
+        $.ajax({
+            url:"/studentInfo/teacher/logout",
+            type:"GET",
+
+            success:function(result){
+                if(result!=null && result==="success"){
+                    console.log(result);
+                    //注销成功
+                    location.href="login.do";
+                }else{
+                    alert("登录失败，用户名或密码错误!");
+                }
+            },
+            error:function (){
+                location.href="login.do";
+            }
+        })
+    }
     $(document).ready(function() {
         $('form').submit(function(event) {
             event.preventDefault(); // 阻止表单提

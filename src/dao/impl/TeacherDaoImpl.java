@@ -269,6 +269,29 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
         return 0;
     }
 
+    @Override
+    public List<CourseApprovalCache> queryOpen(String teacherId) {
+        String sql = "SELECT * FROM course_application where tid = ?";
+        List<CourseApprovalCache> list = new ArrayList<>();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, Integer.parseInt(teacherId));
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()){
+                CourseApprovalCache cache = new CourseApprovalCache();
+                cache.setKind(rs.getInt("kind"));
+                cache.setcName(rs.getString("cName"));
+                cache.settId(rs.getInt("tId"));
+                cache.setApplicantId(rs.getInt("applicantId"));
+                cache.setApproval(rs.getInt("approval"));
+                list.add(cache);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
 
     @Override
     public List<Teacher> query(Teacher condition) {

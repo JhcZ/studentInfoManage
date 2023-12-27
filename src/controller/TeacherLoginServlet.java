@@ -18,30 +18,6 @@ public class TeacherLoginServlet extends HttpServlet {
 
     TeacherService teacherService = new TeacherServiceImpl();
 
-    //判断登录状态
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //1.获取当前会话
-        HttpSession session = req.getSession(false);
-        if (session == null){
-            //说明当前是未登录状态
-            System.out.println("没有会话");
-            resp.setStatus(403);
-            return;
-        }
-
-        //当登录后，注销登录就会导致没有会话
-        Teacher teacher = (Teacher) session.getAttribute("user");
-        if (teacher == null){
-            //虽然有会话，但是没有对象
-            System.out.println("没有user");
-            resp.setStatus(403);
-            return;
-        }
-
-        //2.返回200
-        resp.setStatus(200);
-    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

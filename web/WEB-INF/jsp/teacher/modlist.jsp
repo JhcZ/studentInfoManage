@@ -30,6 +30,25 @@
 </table>
 
 <script>
+    function logout(){
+        $.ajax({
+            url:"/studentInfo/teacher/logout",
+            type:"GET",
+
+            success:function(result){
+                if(result!=null && result==="success"){
+                    console.log(result);
+                    //注销成功
+                    location.href="login.do";
+                }else{
+                    alert("登录失败，用户名或密码错误!");
+                }
+            },
+            error:function (){
+                location.href="login.do";
+            }
+        })
+    }
     // 使用AJAX请求获取课程数据
     $.ajax({
         url: "/studentInfo/teacher/modlist",
@@ -49,7 +68,15 @@
                 tr.append("<td>" + course1.classTime + "</td>");
                 tr.append("<td>" + course1.startTime + "</td>");
                 tr.append("<td>" + course1.semester + "</td>");
-                tr.append("<td>" + (course1.approval === 1 ? "通过" : "未通过") + "</td>");
+                var approvalStatus = "";
+                if (course1.approval === 1) {
+                    approvalStatus = "通过";
+                } else if (course1.approval === -1) {
+                    approvalStatus = "不通过";
+                } else {
+                    approvalStatus = "未审批";
+                }
+                tr.append("<td>" + approvalStatus + "</td>");
                 $("#courseTable").append(tr);
             }
         },

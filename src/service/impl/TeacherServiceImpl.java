@@ -97,6 +97,14 @@ public class TeacherServiceImpl implements TeacherService {
 
     }
 
+    @Override
+    public List<CourseApprovalCache> queryOpen(String teacherId) {
+        if (teacherId == null || teacherId.equals("")){
+            return null;
+        }
+        return teacherDao.queryOpen(teacherId);
+    }
+
 
     /**
      * 模糊查询

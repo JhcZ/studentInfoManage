@@ -25,7 +25,7 @@ public class AdminUserServiceImpl implements AdminUserService{
         AdminUser admin = adminUserDao.find(user.getName(), user.getPassword());
         if (admin != null) {
             //更新用户最近一次访问时间
-            admin.setLastAccessTime(new Date());
+            admin.setLastAccessTime(new Date().getTime());
             adminUserDao.updateAccessTime(admin);
         }
         return admin;

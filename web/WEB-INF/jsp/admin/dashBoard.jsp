@@ -15,6 +15,8 @@
 <body>
 <span>dashboard</span><br/>
 <a href="course/add.do">添加课程</a><br/>
-<a href="course/list.do">课程列表</a>
+<a href="course/list.do">课程列表</a><br/>
+<a href="courseCache/query">课程修改审批</a><br/>
+<a href="student/list">学生列表</a>
 </body>
 </html>

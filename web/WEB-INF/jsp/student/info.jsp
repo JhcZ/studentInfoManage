@@ -13,7 +13,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>主页</title>
-	<%@ include file="/WEB-INF/jsp/student/css_template.jsp"%>
+	<%@ include file="/WEB-INF/jsp/css_template.jsp"%>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">

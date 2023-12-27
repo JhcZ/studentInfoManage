@@ -1,5 +1,7 @@
 package model;
 
+import util.ParseUtil;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -57,6 +59,7 @@ public class AdminUser implements Serializable {
 
     public void setLastAccessTime(Date lastAccessTime) {
         setLastAccessTime(lastAccessTime.getTime());
+
     }
 
     public AdminStatus getStatus() {

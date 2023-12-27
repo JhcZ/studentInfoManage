@@ -1,5 +1,11 @@
 package controller;
 
+/**
+ * @description:
+ * @author: JhcZ
+ * @Email：2325947239@qq.com
+ * @create: 2023-12-27 18:04
+ **/
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,7 +19,7 @@ import service.impl.AdminUserServiceImpl;
 import java.io.IOException;
 
 @WebServlet("/admin/login")
-public class AdminUserLoginServlet extends HttpServlet {
+public class AdminUserLoginServlet extends HttpServlet{
     AdminUserService adminUserService = new AdminUserServiceImpl();
 
     @Override

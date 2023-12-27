@@ -27,7 +27,6 @@ public class AdminUserAddCourseServlet extends HttpServlet {
 
         Course course = new Course();
         course.setName(req.getParameter("courseName"));
-        course.setCourseId(1);
         course.setTeacherId(Integer.parseInt(req.getParameter("teacherId")));
         course.setLocation(req.getParameter("location"));
         course.setCourseDuration(req.getParameter("weeks"));

@@ -17,11 +17,9 @@ public class StudentDelServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String sId = req.getParameter("studentId");
+        String sId = req.getParameter("id");
         if(sId != null && !sId.isEmpty()){
             studentService.del(Integer.parseInt(sId));
-
-            req.getSession().setAttribute("action","删除学生id=" + sId);
         }
         resp.sendRedirect("list");
     }

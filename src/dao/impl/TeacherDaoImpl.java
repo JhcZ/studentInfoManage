@@ -3,10 +3,7 @@ package dao.impl;
 import dao.BaseDao;
 import dao.CourseDao;
 import dao.TeacherDao;
-import model.Course;
-import model.CourseApprovalCache;
-import model.CourseApprovalUpdate;
-import model.Teacher;
+import model.*;
 import util.Encrypt;
 
 
@@ -285,6 +282,30 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
                 cache.setApplicantId(rs.getInt("applicantId"));
                 cache.setApproval(rs.getInt("approval"));
                 list.add(cache);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public List<Student> queryStudentCourse(int courseId) {
+        String sql = "SELECT student_table.studentId,student_table.name " +
+                "FROM student_table " +
+                "JOIN stu_choose ON student_table.studentId = stu_choose.stuId " +
+                "JOIN course_table ON stu_choose.cId = course_table.courseId " +
+                "WHERE course_table.courseId = ?";
+        List<Student> list = new ArrayList<>();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,courseId);
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()){
+                Student student = new Student();
+                student.setStudentId(rs.getInt("studentId"));
+                student.setName(rs.getString("name"));
+                list.add(student);
             }
         } catch (SQLException e) {
             e.printStackTrace();

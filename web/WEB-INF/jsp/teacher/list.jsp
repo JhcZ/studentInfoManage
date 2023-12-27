@@ -49,7 +49,7 @@
         <a href="update.do">修改个人信息</a>
     </div>
     <div class="box">
-        <a href="update.do">录入成绩</a>
+        <a href="inputCourse_list.do">录入成绩</a>
     </div>
     <div class="box">
         <a href="open_course.do">开课申请</a>

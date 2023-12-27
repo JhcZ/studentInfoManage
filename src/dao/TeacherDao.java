@@ -1,9 +1,6 @@
 package dao;
 
-import model.Course;
-import model.CourseApprovalCache;
-import model.CourseApprovalUpdate;
-import model.Teacher;
+import model.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -34,4 +31,7 @@ public interface TeacherDao extends SimpleDao<Teacher>{
 
     //查询开课申请
     List<CourseApprovalCache> queryOpen(String teacherId);
+
+    //查询哪些学生选修了一门课
+    List<Student> queryStudentCourse(int courseId);
 }

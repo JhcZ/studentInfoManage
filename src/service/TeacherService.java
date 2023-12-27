@@ -1,9 +1,6 @@
 package service;
 
-import model.Course;
-import model.CourseApprovalCache;
-import model.CourseApprovalUpdate;
-import model.Teacher;
+import model.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -31,6 +28,10 @@ public interface TeacherService {
 
     //开课申请
     int openCourse(CourseApprovalCache courseApprovalCache);
+    //开课申请列表
     List<CourseApprovalCache> queryOpen(String teacherId);
+    //查询选课的学生
+    List<Student> queryStudentCourse(int courseId);
+
     List<Teacher> fuzzQuery(Teacher condition);
 }

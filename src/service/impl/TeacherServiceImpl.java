@@ -2,10 +2,7 @@ package service.impl;
 
 import dao.TeacherDao;
 import dao.impl.TeacherDaoImpl;
-import model.Course;
-import model.CourseApprovalCache;
-import model.CourseApprovalUpdate;
-import model.Teacher;
+import model.*;
 import service.TeacherService;
 import util.Encrypt;
 
@@ -103,6 +100,11 @@ public class TeacherServiceImpl implements TeacherService {
             return null;
         }
         return teacherDao.queryOpen(teacherId);
+    }
+
+    @Override
+    public List<Student> queryStudentCourse(int courseId) {
+        return teacherDao.queryStudentCourse(courseId);
     }
 
 

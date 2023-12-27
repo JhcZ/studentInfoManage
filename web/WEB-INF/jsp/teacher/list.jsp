@@ -24,7 +24,10 @@
         <a href="update.do">录入成绩</a>
     </div>
     <div class="box">
-        <a href="update.do">开课申请</a>
+        <a href="open_course.do">开课申请</a>
+    </div>
+    <div class="box">
+        <a href="open_list.do">开课申请列表</a>
     </div>
     <div class="box">
         <a href="mod.do">课程修改申请</a>

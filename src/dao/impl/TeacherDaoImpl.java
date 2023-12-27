@@ -258,9 +258,9 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
             int rowsAffected = pstmt.executeUpdate();
 
             if (rowsAffected > 0) {
-                System.out.println("更新修改申请成功！");
+                System.out.println("openCourse  ： 插入成功！");
             } else {
-                System.out.println("更新失败！找不到匹配的记录。");
+                System.out.println("openCourse  ： 插入失败");
             }
             return rowsAffected;
         } catch (SQLException e) {

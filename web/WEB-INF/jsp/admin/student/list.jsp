@@ -19,10 +19,8 @@
 </head>
 
 <body>
-<%--<button onclick="loadStudentList()">获取学生列表</button>--%>
     <div class="row">
         <div class="col-sm-9 col-md-9 main">
-<%--            <ul id="studentList"></ul>--%>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>

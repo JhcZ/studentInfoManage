@@ -34,4 +34,6 @@ public interface TeacherDao extends SimpleDao<Teacher>{
 
     //查询哪些学生选修了一门课
     List<Student> queryStudentCourse(int courseId);
+
+
 }

@@ -33,6 +33,16 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
+    public List<Teacher> get(Teacher condition, int page, int pageSize) {
+        return teacherDao.query(condition,(page - 1) * pageSize,pageSize);
+    }
+
+    @Override
+    public int count(Teacher condition) {
+        return teacherDao.count(condition);
+    }
+
+    @Override
     public int updatePw(Teacher t, String p) {
         if (t == null || p == null){
             return 0;
@@ -120,5 +130,15 @@ public class TeacherServiceImpl implements TeacherService {
             return null;
         }
         return teacherDao.query(condition);
+    }
+
+    @Override
+    public boolean del(int teacherId) {
+        return teacherDao.delete(teacherId) == 1;
+    }
+
+    @Override
+    public boolean add(Teacher teacher) {
+        return teacherDao.insert(teacher) == 1;
     }
 }

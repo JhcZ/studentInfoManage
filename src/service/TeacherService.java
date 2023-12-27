@@ -13,6 +13,11 @@ public interface TeacherService {
 
     //修改密码
     int updatePw(Teacher t,String p);
+    //分页模糊查找学生列表
+    List<Teacher> get(Teacher condition, int page, int pageSize);
+    //获取模糊查询学生的记录数
+    int count(Teacher condition);
+
 
     //查询开课课程
     List<Course> queryCourse(String teacherId);
@@ -34,4 +39,7 @@ public interface TeacherService {
     List<Student> queryStudentCourse(int courseId);
 
     List<Teacher> fuzzQuery(Teacher condition);
+
+    boolean del(int teacherId);
+    boolean add(Teacher teacher);
 }

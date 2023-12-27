@@ -14,8 +14,13 @@
 <head>
     <meta charset="UTF-8">
     <title>查分</title>
-
-    <%@ include file="/WEB-INF/jsp/css_template.jsp"%>
+    <jsp:include page="../css_template.jsp"/>
+    <style>
+        .popup {
+            display: none;
+            /* 添加其他样式以适应你的设计需求 */
+        }
+    </style>
 </head>
 
 <body>
@@ -51,7 +56,7 @@
             <h1 class="page-header">成绩查询</h1>
             <!-- 成绩查询表单 -->
             <div class="table-responsive">
-                <form class="score-form" action="queryScore" method="post" onsubmit="showPopup()">
+                <form class="score-form" action="queryScore" method="post">
                     <div class="form-group">
                         <label for="studentId">学号：</label>
                         <input type="text" class="form-control" id="studentId" name="studentId" required>
@@ -60,7 +65,7 @@
                         <label for="courseId">课程号：</label>
                         <input type="text" class="form-control" id="courseId" name="courseId" required>
                     </div>
-                    <button type="submit" class="btn btn-primary" onclick="showPopup()">查询</button>
+                    <button type="button" class="btn btn-primary" onclick="showPopup()">查询</button>
                 </form>
 
                 <!-- 弹出界面 -->
@@ -80,11 +85,13 @@
 
 <script>
     function showPopup() {
-        document.getElementById('resultPopup').style.display = 'block';
+        const popup = document.getElementById('resultPopup');
+        popup.style.display = 'block';
     }
 
     function closePopup() {
-        document.getElementById('resultPopup').style.display = 'none';
+        const popup = document.getElementById('resultPopup');
+        popup.style.display = 'none';
     }
 </script>
 </html>

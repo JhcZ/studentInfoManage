@@ -5,28 +5,28 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Student;
-import org.apache.commons.fileupload2.core.DiskFileItem;
-import org.apache.commons.fileupload2.core.DiskFileItemFactory;
-import org.apache.commons.fileupload2.jakarta.JakartaServletFileUpload;
-import service.StudentService;
-import service.impl.StudentServiceImpl;
+import model.Teacher;
+import service.TeacherService;
+import service.impl.TeacherServiceImpl;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-//后台：管理员查询所有学生
-@WebServlet(urlPatterns = {"/admin/student/list","/admin/student/query"})
-public class StudentListServlet extends HttpServlet {
-    StudentService studentService = new StudentServiceImpl();
+/**
+ * @description:
+ * @author: JhcZ
+ * @Email：2325947239@qq.com
+ * @create: 2023-12-28 00:26
+ **/
+@WebServlet(urlPatterns = {"/admin/teacher/list","/admin/teacher/query"})
+public class TeacherListServlet extends HttpServlet {
+    TeacherService teacherService = new TeacherServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8"); //处理中文乱码
-        Student condition = new Student();
+        Teacher condition = new Teacher();
+        condition.setTeacherId("");
         condition.setName(req.getParameter("name"));
         // 从客户端获取分页信息
         int page = 1;
@@ -34,13 +34,13 @@ public class StudentListServlet extends HttpServlet {
         if (sPage != null && !"".equals(sPage)) {
             page = Integer.parseInt(req.getParameter("p"));
         }
-        int pageSize = 10;
-        int usersCount = studentService.count(condition);
+        int pageSize = 5;
+        int usersCount = teacherService.count(condition);
         int pageCount = usersCount % pageSize == 0 ? usersCount / pageSize : usersCount / pageSize + 1;
         // 从模型层获取到查询结果
-        List<Student> studentList = studentService.get(condition, page, pageSize);
+        List<Teacher> teacherList = teacherService.get(condition, page, pageSize);
         // 在请求范围内保存用户列表数据
-        req.setAttribute("studentList", studentList);
+        req.setAttribute("teacherList", teacherList);
         req.setAttribute("p", page);
         req.setAttribute("pCount", pageCount);
         // 页面跳转：请求转发至列表页面
@@ -49,6 +49,6 @@ public class StudentListServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doPost(req, resp);
+        doGet(req,resp);
     }
 }

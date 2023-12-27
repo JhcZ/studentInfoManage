@@ -7,6 +7,7 @@ import model.*;
 import util.Encrypt;
 
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -92,7 +93,6 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
         return courseList;
     }
 
-
     @Override
     public int modCourse(CourseApprovalUpdate course) {
         String sql = "INSERT INTO application_course_cache (courseId, name, teacher, location, " +
@@ -151,7 +151,7 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
     public int courseApprovalUpdate(CourseApprovalUpdate course) {
         String sql = "UPDATE application_course_cache " +
                 "SET name = ?, teacher = teacher, location = ?, courseDuration = ?, " +
-                "flag = flag, classes = classes, classDay = ?,classTime = ?,startTime = ?, semester = ?, " +
+                "flag = flag, classDay = ?,classTime = ?,startTime = ?, semester = ?, " +
                 "numOfStu = numOfStu, approval = approval " +
                 "WHERE courseId = ?";
 
@@ -371,7 +371,8 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
                 sql += " AND name LIKE '%" + condition.getName() + "%'";
             }
         }
-        sql += " ORDER BY teacherId DESC `LIMIT` ? , ?";
+        sql += " ORDER BY teacherId DESC " +
+                "LIMIT ? , ?";
         System.out.println("DAO查询find(condition, start, num) : " + sql);
         try {
             pstmt = conn.prepareStatement(sql);
@@ -399,7 +400,23 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
 
     @Override
     public int insert(Teacher teacher) {
-        return 0;
+        int rows = 0;
+        String sql = "INSERT INTO teacher_table(teacherId,name,department,degree,sex,email,createTime)" +
+                " VALUES(?,?,?,?,?,?,?)";
+        try{
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, Integer.parseInt(teacher.getTeacherId()));
+            pstmt.setString(2,teacher.getName());
+            pstmt.setString(3,teacher.getDepartment());
+            pstmt.setString(4,teacher.getDegree());
+            pstmt.setString(5,teacher.getSex());
+            pstmt.setString(6,teacher.getEmail());
+            pstmt.setDate(7,new Date(teacher.getCreateTime().getTime()));
+            rows = pstmt.executeUpdate();
+        }catch (SQLException e){
+            System.out.println("DAO添加教师错误：" + sql + "," + e.getMessage());
+        }
+        return rows;
     }
 
     @Override
@@ -409,17 +426,54 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
 
     @Override
     public int delete(int id) {
-        return 0;
+        int rows = 0;
+        String sql = "DELETE FROM teacher_table WHERE teacherId=?";
+        try{
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,id);
+            rows = pstmt.executeUpdate();
+        }catch (SQLException e){
+            System.out.println("DAO删除教师错误：" + sql + "," + e.getMessage());
+        }
+        return rows;
     }
 
     @Override
     public int count() {
-        return 0;
+        return count(null);
     }
 
     @Override
     public int count(Teacher condition) {
-        return 0;
+        int num = 0;
+        String sql = "SELECT count(*) FROM teacher_table WHERE 1=1";
+        if(condition != null){
+            if(condition.getTeacherId() != null && !condition.getTeacherId().isEmpty()){
+                sql += " AND teacherId='" + condition.getTeacherId() + "'";
+            }
+            if(condition.getName() != null && !condition.getName().isEmpty()){
+                sql += " AND name LIKE '%" + condition.getName() + "%'";
+            }
+            if(condition.getDepartment() != null && !condition.getDepartment().isEmpty()){
+                sql += " AND department LIKE '%" + condition.getDepartment() + "%'";
+            }
+            if(condition.getDegree() != null && !condition.getDegree().isEmpty()){
+                sql += " AND major LIKE '%" + condition.getDegree() + "%'";
+            }
+        }
+        System.out.println("DAO查询count(condition): " + sql);
+        try{
+            stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                num = rs.getInt(1);
+            }
+        }catch (SQLException e){
+            System.out.println("DAO根据条件" + condition +
+                    "查询教师数量错误：" + sql + "," + e.getMessage()
+            );
+        }
+        return num;
     }
 
 }

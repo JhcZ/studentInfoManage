@@ -11,7 +11,7 @@ import service.impl.StudentServiceImpl;
 import java.io.IOException;
 
 //后台：管理员删除学生
-@WebServlet(urlPatterns = "/admin/student/del")
+@WebServlet("/admin/student/del")
 public class StudentDelServlet extends HttpServlet {
     StudentService studentService = new StudentServiceImpl();
 

@@ -40,7 +40,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public boolean resetPwd(int studentId) {
-        String newPwd = "123";
+        String newPwd = Encrypt.toMd5("123");
         return studentDao.updatePwd(studentId,newPwd) == 1;
     }
 

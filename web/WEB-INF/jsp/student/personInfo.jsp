@@ -97,10 +97,6 @@
     function redirectToAnotherPage(){
         window.location.href = "${pageContext.request.contextPath}/student/updateInfo.do";
     }
-
-    function closeModal() {
-        document.getElementById('updateModal').style.display = 'none';
-    }
 </script>
 </body>
 </html>

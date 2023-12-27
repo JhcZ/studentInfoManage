@@ -45,7 +45,7 @@ create table if not exists course_application
 
 create table if not exists student_table
 (
-    studentId  int         not null comment '学号',
+    studentId  int auto_increment not null comment '学号',
     name       varchar(15) not null comment '学生姓名',
     major      varchar(10) not null comment '专业',
     department varchar(15) null comment '所属学院',

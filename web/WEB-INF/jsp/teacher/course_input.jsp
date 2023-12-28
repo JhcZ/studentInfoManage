@@ -47,8 +47,9 @@
 <table id="studentTable">
     <thead>
     <tr>
-        <th>学生姓名</th>
+
         <th>学号</th>
+        <td>课程ID</td>
         <th>成绩</th>
     </tr>
     </thead>
@@ -60,7 +61,25 @@
 <button id="submitBtn" onclick="mysub()">提交</button>
 
 <script>
+    function logout(){
+        $.ajax({
+            url:"/studentInfo/teacher/logout",
+            type:"GET",
 
+            success:function(result){
+                if(result!=null && result==="success"){
+                    console.log(result);
+                    //注销成功
+                    location.href="login.do";
+                }else{
+                    alert("登录失败，用户名或密码错误!");
+                }
+            },
+            error:function (){
+                location.href="login.do";
+            }
+        })
+    }
     window.onload = function (){
         myload();
     }
@@ -77,21 +96,21 @@
                     // 动态添加学生数据到表格
                     students.forEach(function(student) {
                         var tr = document.createElement('tr');
-                        var nameTd = document.createElement('td');
-                        var idTd = document.createElement('td');
+                        var cId = document.createElement('td');
+                        var stuId = document.createElement('td');
                         var scoreTd = document.createElement('td');
                         var scoreInput = document.createElement('input');
                         scoreInput.type = 'text';
                         scoreInput.name = 'score';
                         scoreInput.placeholder = '请输入成绩';
 
-                        nameTd.textContent = student.name;
-                        idTd.textContent = student.studentId;
+                        cId.textContent = student.courseId;
+                        stuId.textContent = student.studentId;
 
                         scoreTd.appendChild(scoreInput);
 
-                        tr.appendChild(nameTd);
-                        tr.appendChild(idTd);
+                        tr.appendChild(stuId);
+                        tr.appendChild(cId);
                         tr.appendChild(scoreTd);
                         tbody.appendChild(tr);
                     });
@@ -110,13 +129,13 @@
 
         // 收集表单数据
         rows.forEach(function(row) {
-            var name = row.cells[0].textContent;
-            var id = row.cells[1].textContent;
+            var sId = row.cells[0].textContent;
+            var cId = row.cells[1].textContent;
             var score = row.querySelector('input[name="score"]').value;
 
             formData.push({
-                name: name,
-                id: id,
+                stuId: sId,
+                cId: cId,
                 score: score
             });
             console.log(formData);

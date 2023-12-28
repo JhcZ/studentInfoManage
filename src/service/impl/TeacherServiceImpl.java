@@ -113,8 +113,13 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public List<Student> queryStudentCourse(int courseId) {
+    public List<Score> queryStudentCourse(int courseId) {
         return teacherDao.queryStudentCourse(courseId);
+    }
+
+    @Override
+    public List<Score> queryStudScore(int courseId) {
+        return teacherDao.queryStuScore(courseId);
     }
 
 

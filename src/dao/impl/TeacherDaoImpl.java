@@ -290,21 +290,21 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
     }
 
     @Override
-    public List<Student> queryStudentCourse(int courseId) {
-        String sql = "SELECT student_table.studentId,student_table.name " +
+    public List<Score> queryStudentCourse(int courseId) {
+        String sql = "SELECT student_table.studentId,student_table.name,stu_choose.cId " +
                 "FROM student_table " +
                 "JOIN stu_choose ON student_table.studentId = stu_choose.stuId " +
                 "JOIN course_table ON stu_choose.cId = course_table.courseId " +
                 "WHERE course_table.courseId = ?";
-        List<Student> list = new ArrayList<>();
+        List<Score> list = new ArrayList<>();
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1,courseId);
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()){
-                Student student = new Student();
+                Score student = new Score();
                 student.setStudentId(rs.getInt("studentId"));
-                student.setName(rs.getString("name"));
+                student.setCourseId(rs.getInt("cId"));
                 list.add(student);
             }
         } catch (SQLException e) {
@@ -313,7 +313,27 @@ public class TeacherDaoImpl extends BaseDao implements TeacherDao {
         return list;
     }
 
-
+    public List<Score> queryStuScore(int courseId) {
+        String sql = "SELECT sId,cId,grade " +
+                "FROM score_table " +
+                "WHERE cId = ?";
+        List<Score> list = new ArrayList<>();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,courseId);
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()){
+                Score student = new Score();
+                student.setStudentId(rs.getInt("sId"));
+                student.setCourseId(rs.getInt("cId"));
+                student.setGrade(rs.getInt("grade"));
+                list.add(student);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
     @Override
     public List<Teacher> query(Teacher condition) {
         List<Teacher> TeacherList = new ArrayList<>();

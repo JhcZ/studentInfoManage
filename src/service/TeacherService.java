@@ -18,7 +18,6 @@ public interface TeacherService {
     //获取模糊查询学生的记录数
     int count(Teacher condition);
 
-
     //查询开课课程
     List<Course> queryCourse(String teacherId);
     //课程修改申请
@@ -36,8 +35,9 @@ public interface TeacherService {
     //开课申请列表
     List<CourseApprovalCache> queryOpen(String teacherId);
     //查询选课的学生
-    List<Student> queryStudentCourse(int courseId);
+    List<Score> queryStudentCourse(int courseId);
 
+    List<Score> queryStudScore(int courseId);
     List<Teacher> fuzzQuery(Teacher condition);
 
     boolean del(int teacherId);

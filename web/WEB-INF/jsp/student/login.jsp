@@ -102,13 +102,13 @@
                     <input type="password" class="form-control" name="password" id="password" placeholder="password">
                 </div>
             </div>
-            <%--<div class="form-group" style="display: flex; align-items: center;">
+            <div class="form-group" style="display: flex; align-items: center;">
                 <label for="inputCode" class="col-sm-2 control-label">验证码</label>
                 <div class="col-sm-8">
                     <input type="text" class="form-control" name="inputCode" id="inputCode" placeholder="inputCode">
                     <img src="validCode" id="vCode" onclick="refreshCode()"><br>
                 </div>
-            </div>--%>
+            </div>
             <div class="loginBtn">
                 <button type="submit" class=" btn btn-info loginBtn">登录</button>
             </div>

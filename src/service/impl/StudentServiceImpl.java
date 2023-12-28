@@ -66,4 +66,9 @@ public class StudentServiceImpl implements StudentService {
     public boolean del(int studentId) {
         return studentDao.delete(studentId) == 1;
     }
+
+    @Override
+    public boolean modPwd(int studentId, String newPwd) {
+        return studentDao.modPwd(studentId,newPwd);
+    }
 }

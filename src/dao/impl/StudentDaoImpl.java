@@ -5,6 +5,7 @@ import dao.StudentDao;
 import model.Course;
 import model.Student;
 import model.Teacher;
+import util.Encrypt;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -67,6 +68,26 @@ public class StudentDaoImpl extends BaseDao implements StudentDao {
             System.out.println("DAO更改学生状态错误：" + sql + "," + e.getMessage());
         }
         return rows;
+    }
+
+    @Override
+    public boolean modPwd(int studentId, String newPwd) {
+        boolean flag = false;
+        int rows = 0;
+        String sql = "UPDATE student_table SET password=? WHERE studentId=?";
+        try{
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, Encrypt.toMd5(newPwd));
+            pstmt.setInt(2,studentId);
+            rows = pstmt.executeUpdate();
+            if(rows != 0){
+                flag = true;
+                return flag;
+            }
+        }catch (SQLException e){
+            System.out.println("DAO更改学生密码错误：" + sql + "," + e.getMessage());
+        }
+        return flag;
     }
 
     @Override

@@ -25,5 +25,6 @@ public interface StudentService {
     boolean add(Student student);
     //删除学生
     boolean del(int studentId);
-
+    //修改密码
+    boolean modPwd(int studentId,String newPwd);
 }

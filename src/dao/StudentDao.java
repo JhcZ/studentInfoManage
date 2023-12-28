@@ -9,4 +9,6 @@ public interface StudentDao extends SimpleDao<Student>{
     int updatePwd(int studentId, String newPwd);
     //更新学生状态
     int updateStatus(int studentId, String status);
+    //修改密码
+    boolean modPwd(int studentId, String newPwd);
 }

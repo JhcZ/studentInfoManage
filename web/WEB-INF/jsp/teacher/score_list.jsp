@@ -77,7 +77,7 @@
                 });
             },
             error:function (){
-                location.href="login.do";
+                alert("查询失败")
             }
         })
     }

@@ -33,7 +33,10 @@ public interface TeacherDao extends SimpleDao<Teacher>{
     List<CourseApprovalCache> queryOpen(String teacherId);
 
     //查询哪些学生选修了一门课
-    List<Student> queryStudentCourse(int courseId);
+    List<Score> queryStudentCourse(int courseId);
+
+
+    List<Score> queryStuScore(int courseId);
 
 
 }

@@ -39,6 +39,7 @@ public class ScoreDaoImpl extends BaseDao implements ScoreDao {
         return scoreList;
     }
 
+
     @Override
     public Score findBySIdAndCId(int studentId, int courseId) {
         Score score = null;
@@ -62,17 +63,14 @@ public class ScoreDaoImpl extends BaseDao implements ScoreDao {
 
     @Override
     public void importScores(List<Score> scores) {
-        String sql = "INSERT INTO score_table(sId,cId,maxScore,minScore,passed,grade)" +
-                " VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO score_table(sId,cId,grade)" +
+                " VALUES(?,?,?)";
         try {
             pstmt = conn.prepareStatement(sql);
             for(Score score : scores){
                 pstmt.setInt(1, score.getStudentId());
                 pstmt.setInt(2, score.getCourseId());
-                pstmt.setDouble(3, score.getMaxScore());
-                pstmt.setDouble(4, score.getMinScore());
-                pstmt.setInt(5, score.getPassed());
-                pstmt.setDouble(6, score.getGrade());
+                pstmt.setDouble(3, score.getGrade());
                 pstmt.addBatch();
             }
             pstmt.executeBatch();

@@ -49,6 +49,7 @@
         <th>开课时间</th>
         <th>开设学期</th>
         <th>操作</th>
+        <th>成绩</th>
     </tr>
     </thead>
     <tbody></tbody>
@@ -90,12 +91,27 @@
                 "<td>" + course.name + "</td>" +
                 "<td>" + course.startTime + "</td>" +
                 "<td>" + course.semester + "</td>" +
-                "<td><button onclick='submitGrade(\"" + course.courseId + "\")'>成绩录入</button></td>";
+                "<td><button onclick='submitGrade(\"" + course.courseId + "\")'>成绩录入</button></td>" +
+                "<td><a href=\"score_list.do?courseId=" + course.courseId + "\">成绩查看</button></td>";
             tableBody.appendChild(row);
         });
     }
     function submitGrade(courseId) {
         // 使用 AJAX 向后端发送 courseId
+        $.ajax({
+            url: "/studentInfo/teacher/query_stu_course",
+            method: "POST",
+            data: { courseId: courseId },
+            success: function(response) {
+                console.log("Course ID submitted successfully:", courseId);
+                location.href = "course_input.do"
+            },
+            error: function(error) {
+                console.log("Error occurred while submitting Course ID:", error);
+            }
+        });
+    }
+    function score(){
         $.ajax({
             url: "/studentInfo/teacher/query_stu_course",
             method: "POST",
